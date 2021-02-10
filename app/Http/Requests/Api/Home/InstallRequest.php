@@ -47,7 +47,7 @@ class InstallRequest extends ApiRequest
         $data = [];
         $data['Settings'] = Setting::pluck((app()->getLocale() =='en')?'value':'value_ar','key')->toArray();
         $data['Faqs'] = FaqResource::collection(Faq::where('is_active',true)->get());
-        $data['Categories'] = CategoryResource::collection(Category::where('is_active',true)->get());
+        $data['Categories'] = CategoryResource::collection(Category::where('is_active',true)->whereNull('parent_id')->get());
         $data['Countries'] = CountryResource::collection(Country::where('is_active',true)->get());
         $data['Advertisements'] = AdvertisementResource::collection(Advertisement::where('is_active',true)->get());
         $data['Essentials'] = [
