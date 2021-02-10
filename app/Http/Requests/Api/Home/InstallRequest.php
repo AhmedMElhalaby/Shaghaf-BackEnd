@@ -54,17 +54,11 @@ class InstallRequest extends ApiRequest
             'NotificationType'=>Constant::NOTIFICATION_TYPE,
             'SenderType'=>Constant::SENDER_TYPE,
             'VerificationType'=>Constant::VERIFICATION_TYPE,
-            'SubscriptionStatuses'=>Constant::SUBSCRIPTION_STATUSES,
-            'SubscriptionTypes'=>Constant::SUBSCRIPTION_TYPES,
             'PaymentMethod'=>Constant::PAYMENT_METHOD,
             'TransactionStatus'=>Constant::TRANSACTION_STATUS,
             'TransactionTypes'=>Constant::TRANSACTION_TYPES,
             'UserTypes'=>Constant::USER_TYPE,
-            'ProviderTypes'=>Constant::PROVIDER_TYPE,
-            'OrderStatuses'=>Constant::ORDER_STATUSES,
-            'ReviewType'=>Constant::REVIEW_TYPE,
-            'AdvertisementType'=>Constant::ADVERTISEMENT_TYPE,
-            'FavouriteType'=>Constant::FAVOURITE_TYPE,
+            'ProductTypes'=>Constant::PRODUCT_TYPE,
         ];
         return $this->successJsonResponse([],$data);
     }

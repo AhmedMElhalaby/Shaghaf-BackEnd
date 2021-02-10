@@ -30,7 +30,6 @@ class Constant
         'Cash'=>2,
     ];
     const PAYMENT_METHOD_RULES = '1,2';
-
     const TRANSACTION_STATUS = [
         'Pending'=>1,
         'Paid'=>2,
@@ -50,29 +49,11 @@ class Constant
         'Freelancer'=>2
     ];
     const USER_TYPE_RULES = '1,2';
-
     const PRODUCT_TYPE=[
         'Service'=>1,
         'Product'=>2
     ];
     const PRODUCT_TYPE_RULES = '1,2';
-
-    const ORDER_STATUSES=[
-        'PendingApproval'=>1,
-        'Approved'=>2,
-        'Rejected'=>3,
-        'Canceled'=>4,
-        'Finished'=>5,
-        'NotReceived'=>6,
-        'NotDelivered'=>7,
-    ];
-    const ORDER_STATUSES_RULES = '1,2,3,4,5,6,7';
-    const REVIEW_TYPE=[
-        'Order'=>1,
-        'Food'=>2,
-        'Provider'=>3
-    ];
-    const REVIEW_TYPE_RULES = '1,2,3';
     const MEDIA_TYPES = [
         'Product'=>1,
     ];
