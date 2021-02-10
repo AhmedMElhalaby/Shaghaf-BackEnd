@@ -18,6 +18,7 @@ class CountryResource extends JsonResource
         $Objects = array();
         $Objects['id'] = $this->id;
         $Objects['name'] = (app()->getLocale() == 'ar')?$this->name_ar:$this->name;
+        $Objects['Cities'] = CityResource::collection($this->cities);
         return $Objects;
     }
 }

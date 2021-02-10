@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property integer id
@@ -21,6 +22,10 @@ class Category extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class,'parent_id');
+    }
+    public function sub_categories(): HasMany
+    {
+        return $this->hasMany(Category::class,'parent_id');
     }
     /**
      * @return int
