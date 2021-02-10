@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
  * @property mixed sub_category_id
  * @property mixed type
  * @property mixed per_page
+ * @property mixed user_id
  */
 class IndexRequest extends ApiRequest
 {
@@ -36,7 +37,11 @@ class IndexRequest extends ApiRequest
     {
         $logged = auth()->user();
         $Objects = new  Product();
-        $Objects = $Objects->where('user_id',$logged->getId());
+        if($this->filled('user_id')){
+            $Objects = $Objects->where('user_id',$this->user_id);
+        }else{
+            $Objects = $Objects->where('user_id',$logged->getId());
+        }
         if ($this->filled('category_id')) {
             $Objects = $Objects->where('category_id',$this->category_id);
         }
