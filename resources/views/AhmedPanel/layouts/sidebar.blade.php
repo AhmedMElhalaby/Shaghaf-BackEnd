@@ -40,7 +40,7 @@
     </div>
 </li>
 @endif
-@if (auth('admin')->user()->can('Settings')|| auth('admin')->user()->can('Faqs') || auth('admin')->user()->can('Categories')|| auth('admin')->user()->can('Countries')|| auth('admin')->user()->can('Cities'))
+@if (auth('admin')->user()->can('Settings')|| auth('admin')->user()->can('Faqs') || auth('admin')->user()->can('Categories')||auth('admin')->user()->can('SubCategories')|| auth('admin')->user()->can('Countries')|| auth('admin')->user()->can('Cities'))
 <li class="nav-item ">
     <a class="nav-link collapsed" data-toggle="collapse" href="#app_data" aria-expanded="false">
         <i class="material-icons">keyboard_arrow_down</i>
@@ -72,6 +72,14 @@
                     </a>
                 </li>
             @endif
+            @if (auth('admin')->user()->can('SubCategories'))
+                <li class="nav-item @if(strpos(url()->current() , url('app_data/sub_categories'))===0) active @endif">
+                    <a href="{{url('app_data/sub_categories')}}" class="nav-link">
+                        <i class="material-icons">category</i>
+                        <p>{{__('admin.sidebar.sub_categories')}}</p>
+                    </a>
+                </li>
+            @endif
             @if (auth('admin')->user()->can('Countries'))
                 <li class="nav-item @if(strpos(url()->current() , url('app_data/countries'))===0) active @endif">
                     <a href="{{url('app_data/countries')}}" class="nav-link">
@@ -88,14 +96,6 @@
                     </a>
                 </li>
             @endif
-            @if (auth('admin')->user()->can('Advertisements'))
-                <li class="nav-item @if(strpos(url()->current() , url('app_data/advertisements'))===0) active @endif">
-                    <a href="{{url('app_data/advertisements')}}" class="nav-link">
-                        <i class="material-icons">font_download</i>
-                        <p>{{__('admin.sidebar.advertisements')}}</p>
-                    </a>
-                </li>
-            @endif
         </ul>
     </div>
 </li>
@@ -108,11 +108,27 @@
     </a>
     <div class="collapse @if(strpos(url()->current() , url('app_content'))===0) in @endif" id="app_content" @if(strpos(url()->current() , url('app_content'))===0) aria-expanded="true" @endif>
         <ul class="nav">
+            @if (auth('admin')->user()->can('Advertisements'))
+                <li class="nav-item @if(strpos(url()->current() , url('app_content/advertisements'))===0) active @endif">
+                    <a href="{{url('app_content/advertisements')}}" class="nav-link">
+                        <i class="material-icons">font_download</i>
+                        <p>{{__('admin.sidebar.advertisements')}}</p>
+                    </a>
+                </li>
+            @endif
+            @if (auth('admin')->user()->can('Orders'))
+                <li class="nav-item @if(strpos(url()->current() , url('app_content/orders'))===0) active @endif">
+                    <a href="{{url('app_content/orders')}}" class="nav-link">
+                        <i class="material-icons">category</i>
+                        <p>{{__('admin.sidebar.orders')}}</p>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </li>
 @endif
-@if (auth('admin')->user()->can('Users') || auth('admin')->user()->can('Tickets') || auth('admin')->user()->can('UserSubscription'))
+@if (auth('admin')->user()->can('Customers') || auth('admin')->user()->can('Providers') || auth('admin')->user()->can('Tickets'))
     <li class="nav-item ">
         <a class="nav-link collapsed" data-toggle="collapse" href="#user_managements" aria-expanded="false">
             <i class="material-icons">keyboard_arrow_down</i>
@@ -120,11 +136,19 @@
         </a>
         <div class="collapse @if(strpos(url()->current() , url('user_managements'))===0) in @endif" id="user_managements" @if(strpos(url()->current() , url('user_managements'))===0) aria-expanded="true" @endif>
             <ul class="nav">
-                @if (auth('admin')->user()->can('Users'))
-                    <li class="nav-item @if(strpos(url()->current() , url('user_managements/users'))===0) active @endif">
-                        <a href="{{url('user_managements/users')}}" class="nav-link">
+                @if (auth('admin')->user()->can('Customers'))
+                    <li class="nav-item @if(strpos(url()->current() , url('user_managements/customers'))===0) active @endif">
+                        <a href="{{url('user_managements/customers')}}" class="nav-link">
                             <i class="material-icons">group</i>
-                            <p>{{__('admin.sidebar.users')}}</p>
+                            <p>{{__('admin.sidebar.customers')}}</p>
+                        </a>
+                    </li>
+                @endif
+                @if (auth('admin')->user()->can('Providers'))
+                    <li class="nav-item @if(strpos(url()->current() , url('user_managements/providers'))===0) active @endif">
+                        <a href="{{url('user_managements/providers')}}" class="nav-link">
+                            <i class="material-icons">people_outline</i>
+                            <p>{{__('admin.sidebar.providers')}}</p>
                         </a>
                     </li>
                 @endif

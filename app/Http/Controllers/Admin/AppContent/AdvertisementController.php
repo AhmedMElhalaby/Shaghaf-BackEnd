@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\AppData;
+namespace App\Http\Controllers\Admin\AppContent;
 
 use App\Http\Controllers\Admin\Controller;
 use App\Models\Advertisement;
@@ -12,7 +12,7 @@ class AdvertisementController extends Controller
 
     public function setup()
     {
-        $this->setRedirect('app_data/advertisements');
+        $this->setRedirect('app_content/advertisements');
         $this->setEntity(new Advertisement());
         $this->setTable('Advertisements');
         $this->setLang('Advertisement');

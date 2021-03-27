@@ -35,7 +35,15 @@ class StoreRequest extends FormRequest
     {
         $Object = $crud->getEntity();
         foreach ($crud->getFilters() as $filter){
-            $Object->{$filter['name']} = $filter['value'];
+            if ($filter['type'] == 'where'){
+                $Object->{$filter['name']} = $filter['value'];
+            }
+            elseif ($filter['type'] == 'whereNull'){
+                $Object->{$filter['name']} = null;
+            }
+            elseif ($filter['type'] == 'whereNotNull'){
+                $Object->{$filter['name']} = null;
+            }
         }
         foreach ($crud->getFields() as $field) {
             if ($field['type'] == 'image'){

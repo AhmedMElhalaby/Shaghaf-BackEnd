@@ -14,6 +14,7 @@ return [
     */
 
     'object_not_found' => 'الهدف غير موجود !',
+    'object_exists' => 'الهدف موجود مسبقا !',
     'coupon_not_found' => 'الكوبون غير موجود !',
     'deleted_successful' => 'تم الحذف بنجاح',
     'created_successful' => 'تم الاضافة بنجاح',
@@ -36,12 +37,14 @@ return [
     'wrong_sequence'=>'ترتيب خاطئ !',
     'you_cannot_add_foods_from_several_provider_at_the_same_time'=>'لا يمكنك اضافة وجبات من اكثر من مزود بطلب واحد !',
     'dont_have_permission'=>'لا تمتلك صلاحيات لهذا الاجراء !',
-    'dont_have_credit'=>'لا تملك رصيد كافي قم بالاشتراك بأحد الباقات المتاحة لتستطيع المزايدة  !',
+    'dont_have_credit'=>'لا تملك رصيد كافي !',
     'credit_less_than_last_bid'=>'المبلغ اقل من اخر مزايدة',
     'bid_less_than_required'=>'بلغ المزايد اقل من المطلوب !',
     'you_cannot_do_it_at_this_time'=>'لا يمكنك القيام بهذا الإجراء في الوقت الحالي !',
     'payment_verified'=>'تم التأكد من الدفع !',
     'payment_not_verified'=>'لم يتم الدفع !',
+    'there is no freelancers for this category' =>'لا يوجد مزودين لهذه الخدمة',
+    'Message Sent, we will reply soon' => 'تم ارسال الرسالة ،و سيتم الرد في أقرب وقت ممكن',
 
     'OrderStatus'=>[
         'New'=>[

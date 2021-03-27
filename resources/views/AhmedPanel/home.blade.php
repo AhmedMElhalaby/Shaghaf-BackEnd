@@ -1,41 +1,41 @@
 @extends('AhmedPanel.layouts.app')
 
 @section('content')
-{{--    <div class="row">--}}
-{{--        <div class="col-lg-4 col-md-6 col-sm-6" onclick="window.location='{{url('admin/users')}}'" style="cursor: pointer">--}}
-{{--            <div class="card card-stats">--}}
-{{--                <div class="card-header" data-background-color="blue">--}}
-{{--                    <i class="material-icons">person</i>--}}
-{{--                </div>--}}
-{{--                <div class="card-content">--}}
-{{--                    <p class="category">مستخدمين</p>--}}
-{{--                    <h3 class="title">{{\App\User::where('type',1)->count()}}</h3>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="col-lg-4 col-md-6 col-sm-6">--}}
-{{--            <div class="card card-stats" onclick="window.location='{{url('admin/advertisements')}}'" style="cursor: pointer">--}}
-{{--                <div class="card-header" data-background-color="orange">--}}
-{{--                    <i class="material-icons">font_download</i>--}}
-{{--                </div>--}}
-{{--                <div class="card-content">--}}
-{{--                    <p class="category">الإعلانات</p>--}}
-{{--                    <h3 class="title">{{\App\Models\Advertisement::count()}}</h3>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="col-lg-4 col-md-6 col-sm-6" onclick="window.location='{{url('admin/categories')}}'" style="cursor: pointer">--}}
-{{--            <div class="card card-stats">--}}
-{{--                <div class="card-header" data-background-color="red">--}}
-{{--                    <i class="material-icons">category</i>--}}
-{{--                </div>--}}
-{{--                <div class="card-content">--}}
-{{--                    <p class="category">التصنيفات</p>--}}
-{{--                    <h3 class="title">{{\App\Models\Category::where('parent',0)->count()}}</h3>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-6" onclick="window.location='{{url('user_managements/customers')}}'" style="cursor: pointer">
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="blue">
+                    <i class="material-icons">group</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">{{__('admin.sidebar.customers')}}</p>
+                    <h3 class="title">{{\App\Models\User::where('type',\App\Helpers\Constant::USER_TYPE['Customer'])->count()}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card card-stats" onclick="window.location='{{url('user_managements/providers')}}'" style="cursor: pointer">
+                <div class="card-header" data-background-color="orange">
+                    <i class="material-icons">people_outline</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">{{__('admin.sidebar.providers')}}</p>
+                    <h3 class="title">{{\App\Models\User::where('type',\App\Helpers\Constant::USER_TYPE['Freelancer'])->count()}}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6" onclick="window.location='{{url('app_content/orders')}}'" style="cursor: pointer">
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="red">
+                    <i class="material-icons">category</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">{{__('admin.sidebar.orders')}}</p>
+                    <h3 class="title">{{\App\Models\Order::count()}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12 col-md-12">
@@ -55,7 +55,6 @@
                                 <label for="msg">{{__('admin.Home.n_text')}} :</label>
                                 <input type="text" required="" name="msg" id="msg" class="form-control" placeholder="{{__('admin.Home.n_enter_text')}}">
                             </div>
-
                             <div class="col-md-1 " style="margin-top: 50px">
                                 <button type="submit" id="send" class="btn btn-primary">{{__('admin.Home.n_send')}}</button>
                             </div>

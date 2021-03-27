@@ -13,33 +13,36 @@
                                 <div class="card-content table-responsive">
                                     <table class="table table-hover">
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.User.name')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.name')}}</th>
                                             <td style="border-top: none !important;">{{$Object->getName()}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.User.mobile')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.mobile')}}</th>
                                             <td style="border-top: none !important;">{{$Object->getMobile()}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.User.email')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.email')}}</th>
                                             <td style="border-top: none !important;">{{$Object->getEmail()}}</td>
                                         </tr>
 
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.User.created_at')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.created_at')}}</th>
                                             <td style="border-top: none !important;">{{\Carbon\Carbon::parse($Object->created_at)->format('Y-m-d')}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.User.balance')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.balance')}}</th>
                                             <td style="border-top: none !important;">{{\App\Helpers\Functions::UserBalance($Object->getId())}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.User.is_active')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.is_active')}}</th>
                                             <td style="border-top: none !important;">
                                                 <span class="label label-{{($Object->isIsActive())?'success':'danger'}}">{{($Object->isIsActive())?__('admin.activation.active'):__('admin.activation.in_active')}}</span>
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.orders_count')}}</th>
+                                            <td style="border-top: none !important;"><a href="{{url('app_content/orders?user_id='.$Object->getId())}}">{{\App\Models\Order::where('user_id',$Object->getId())->count()}}</a></td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -59,7 +62,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach(\App\Models\Transaction::where('user_id',$Object->getId())->get() as $Transaction)
+                                            @foreach(\App\Models\Transaction::where('user_id',$Object->getId())->where('status',\App\Helpers\Constant::TRANSACTION_STATUS['Paid'])->get() as $Transaction)
                                                 <tr>
                                                     <td>{{__('crud.Transaction.Types.'.$Transaction->getType())}}</td>
                                                     <td>{{$Transaction->getValue()}}</td>
@@ -74,25 +77,21 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header text-center" style="padding: 5px" data-background-color="{{ config('app.color') }}">
-                                    <h4 class="title"> {{__('crud.Document.crud_names')}}</h4>
+                                    <h4 class="title"> {{__('crud.Portfolio.crud_names')}}</h4>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
-                                            <th style="border-top: none !important;">{{__('crud.Document.document_type_id')}}</th>
-                                            <th style="border-top: none !important;">{{__('crud.Document.front_face')}}</th>
-                                            <th style="border-top: none !important;">{{__('crud.Document.back_face')}}</th>
-                                            <th style="border-top: none !important;">{{__('crud.Document.expiry_date')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.Portfolio.media')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.Portfolio.description')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach(\App\Models\Document::where('user_id',$Object->getId())->get() as $Document)
+                                        @foreach(\App\Models\Portfolio::where('user_id',$Object->getId())->get() as $Portfolio)
                                             <tr>
-                                                <td>{{(app()->getLocale() =='ar')?$Document->document_type->getNameAr():$Document->document_type->getName()}}</td>
-                                                <td><a href="{{asset($Document->getFrontFace())}}" download><i class="fa fa-download"></i></a></td>
-                                                <td><a href="{{asset($Document->getBackFace())}}" download><i class="fa fa-download"></i></a></td>
-                                                <td>{{($Document->getExpiryDate() != null)?$Document->getExpiryDate():'-'}}</td>
+                                                <td><a href="{{asset($Portfolio->getMedia())}}" download><i class="fa fa-download"></i></a></td>
+                                                <td>{{$Portfolio->getDescription()}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

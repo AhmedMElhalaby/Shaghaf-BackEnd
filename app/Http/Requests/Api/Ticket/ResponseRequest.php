@@ -8,28 +8,23 @@ use App\Http\Resources\Api\Ticket\TicketResource;
 use App\Models\Ticket;
 use App\Models\TicketResponse;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * @property mixed ticket_id
+ * @property mixed response
+ */
 class ResponseRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'ticket_id'=>'required|exists:tickets,id',
             'response'=>'required|string',
         ];
     }
-
-    public function persist()
+    public function run(): JsonResponse
     {
-        $logged = auth()->user();
         $Ticket =(new  Ticket())->find($this->ticket_id);
         if($Ticket->getStatus() != Constant::TICKETS_STATUS['Open']){
             return $this->failJsonResponse([__('messages.wrong_data')]);

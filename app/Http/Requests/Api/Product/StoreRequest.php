@@ -5,9 +5,11 @@ namespace App\Http\Requests\Api\Product;
 use App\Helpers\Constant;
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\Product\ProductResource;
+use App\Models\FreelancerCategory;
 use App\Models\Media;
 use App\Models\Product;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @property mixed name
@@ -19,15 +21,7 @@ use App\Traits\ResponseTrait;
  */
 class StoreRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name'=>'required|string',
@@ -40,8 +34,7 @@ class StoreRequest extends ApiRequest
             'media.*'=>'required|mimes:jpeg,jpg,png'
         ];
     }
-
-    public function persist()
+    public function run(): JsonResponse
     {
         $logged = auth()->user();
         $Product =new  Product();
@@ -52,6 +45,8 @@ class StoreRequest extends ApiRequest
         $Product->setSubCategoryId($this->sub_category_id);
         $Product->setPrice($this->price);
         $Product->setType($this->type);
+        $Product->save();
+        $Product->refresh();
         foreach ($this->file('media') as $media) {
             $Media = new Media();
             $Media->setRefId($Product->getId());
@@ -59,7 +54,9 @@ class StoreRequest extends ApiRequest
             $Media->setFile($media);
             $Media->save();
         }
-        $Product->save();
+        FreelancerCategory::firstOrCreate(
+            ['category_id' => $this->category_id,'sub_category_id' => $this->sub_category_id, 'user_id' => $logged->getId()]
+        );
         $Product->refresh();
         return $this->successJsonResponse([__('messages.saved_successfully')],new ProductResource($Product),'Product');
     }

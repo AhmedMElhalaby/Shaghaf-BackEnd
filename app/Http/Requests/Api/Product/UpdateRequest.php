@@ -7,7 +7,7 @@ use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\Product\ProductResource;
 use App\Models\Media;
 use App\Models\Product;
-use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @property mixed name
@@ -20,15 +20,7 @@ use App\Traits\ResponseTrait;
  */
 class UpdateRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'product_id'=>'required|exists:products,id',
@@ -43,9 +35,8 @@ class UpdateRequest extends ApiRequest
         ];
     }
 
-    public function persist()
+    public function run(): JsonResponse
     {
-        $logged = auth()->user();
         $Product = (new  Product())->find($this->product_id);
         if ($this->filled('name')) {
             $Product->setName($this->name);
@@ -65,15 +56,17 @@ class UpdateRequest extends ApiRequest
         if ($this->filled('type')) {
             $Product->setType($this->type);
         }
-        foreach ($this->file('media') as $media) {
-            $Media = new Media();
-            $Media->setRefId($Product->getId());
-            $Media->setMediaType(Constant::MEDIA_TYPES['Product']);
-            $Media->setFile($media);
-            $Media->save();
-        }
         $Product->save();
         $Product->refresh();
+        if ($this->hasFile('media')) {
+            foreach ($this->file('media') as $media) {
+                $Media = new Media();
+                $Media->setRefId($Product->getId());
+                $Media->setMediaType(Constant::MEDIA_TYPES['Product']);
+                $Media->setFile($media);
+                $Media->save();
+            }
+        }
         return $this->successJsonResponse([__('messages.saved_successfully')],new ProductResource($Product),'Product');
     }
 }

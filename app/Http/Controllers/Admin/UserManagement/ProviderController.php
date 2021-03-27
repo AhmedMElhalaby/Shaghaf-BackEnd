@@ -9,18 +9,25 @@ use App\Http\Requests\Admin\UserManagement\User\ActiveEmailMobileRequest;
 use App\Models\User;
 use App\Traits\AhmedPanelTrait;
 
-class UserController extends Controller
+class ProviderController extends Controller
 {
     use AhmedPanelTrait;
 
     public function setup()
     {
-        $this->setRedirect('user_managements/users');
+        $this->setRedirect('user_managements/providers');
         $this->setEntity(new User());
-        $this->setViewShow('Admin.UserManagement.User.show');
+        $this->setViewShow('Admin.UserManagement.Provider.show');
         $this->setCreate(false);
         $this->setTable('users');
-        $this->setLang('User');
+        $this->setLang('Provider');
+        $this->setFilters([
+            'type'=>[
+                'name'=>'type',
+                'type'=>'where',
+                'value'=>Constant::USER_TYPE['Freelancer']
+            ]
+        ]);
         $this->setColumns([
             'name'=> [
                 'name'=>'name',
@@ -57,7 +64,7 @@ class UserController extends Controller
             'active_mobile_email'=>[
                 'route'=>'active_mobile_email',
                 'icon'=>'fa-check-square',
-                'lang'=>__('crud.User.Links.active_mobile_email'),
+                'lang'=>__('crud.Provider.Links.active_mobile_email',[],session('my_locale')),
                 'condition'=>function ($Object){
                     return (is_null($Object->getEmailVerifiedAt())|| is_null($Object->getMobileVerifiedAt()));
                 }

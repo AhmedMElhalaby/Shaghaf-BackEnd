@@ -4,7 +4,6 @@ namespace App\Http\Requests\Api\Product;
 
 use App\Http\Requests\Api\ApiRequest;
 use App\Models\Product;
-use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -12,13 +11,6 @@ use Illuminate\Http\JsonResponse;
  */
 class DestroyRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules(): array
     {
         return [
@@ -26,7 +18,7 @@ class DestroyRequest extends ApiRequest
         ];
     }
 
-    public function persist(): JsonResponse
+    public function run(): JsonResponse
     {
         $Object = (new Product())->find($this->product_id);
         try {

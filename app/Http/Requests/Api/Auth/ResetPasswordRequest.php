@@ -5,8 +5,8 @@ namespace App\Http\Requests\Api\Auth;
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\User\UserResource;
 use App\Models\PasswordReset;
-use App\Traits\ResponseTrait;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -16,24 +16,7 @@ use Illuminate\Support\Facades\DB;
  */
 class ResetPasswordRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'mobile' => 'required|numeric|exists:users,mobile',
@@ -41,7 +24,7 @@ class ResetPasswordRequest extends ApiRequest
             'password' => 'required|string|min:6|confirmed',
         ];
     }
-    public function persist()
+    public function run(): JsonResponse
     {
         $user = User::where('mobile',$this->mobile)->first();
         $passwordReset = PasswordReset::where('user_id',$user->getId())->first();

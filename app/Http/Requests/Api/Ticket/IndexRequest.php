@@ -5,25 +5,14 @@ namespace App\Http\Requests\Api\Ticket;
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\Ticket\TicketResource;
 use App\Models\Ticket;
-use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * @property mixed per_page
+ */
 class IndexRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-        ];
-    }
-
-    public function persist()
+    public function run(): JsonResponse
     {
         $logged = auth()->user();
         $Objects =new  Ticket();

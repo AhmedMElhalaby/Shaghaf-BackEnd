@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Helpers\Constant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -16,15 +17,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property double price
  * @property integer type
  * @property boolean is_active
+ * @method Product find(mixed $product_id)
  */
 class Product extends Model
 {
     protected $table = 'products';
     protected $fillable = ['name','description','user_id','category_id','sub_category_id','price','type','is_active'];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
     public function media(): HasMany
     {
         return $this->hasMany(Media::class,'ref_id')->where('media_type',Constant::MEDIA_TYPES['Product']);
+    }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
     /**
      * @return int
@@ -169,5 +179,4 @@ class Product extends Model
     {
         $this->is_active = $is_active;
     }
-
 }

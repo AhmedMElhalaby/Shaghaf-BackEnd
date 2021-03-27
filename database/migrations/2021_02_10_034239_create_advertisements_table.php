@@ -15,6 +15,7 @@ class CreateAdvertisementsTable extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
             $table->string('title');
             $table->string('title_ar');
             $table->string('image');

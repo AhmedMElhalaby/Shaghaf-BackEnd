@@ -2,21 +2,14 @@
 
 namespace App\Http\Resources\Api\Ticket;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TicketResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $Objects = array();
-        $Objects['id'] = $this->id;
+        $Objects['id'] = $this->getId();
         $Objects['title'] = $this->getTitle();
         $Objects['message'] = $this->getMessage();
         $Objects['attachment'] = $this->getAttachment();

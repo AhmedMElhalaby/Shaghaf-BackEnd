@@ -30,7 +30,7 @@
         <div class="col-md-6">
             <div class="text-center bg-white border-rounded box-shadow">
                 {{--<!--login form-->--}}
-                <img src="{{asset('logo.png')}}" class="mt-50" width="200" height="150" alt="">
+                <img src="{{asset('logo.svg')}}" class="mt-50" width="200" height="150" alt="">
                 @if (session('error'))
                     <div class="alert alert-danger" role="alert">
                         {{ session('error') }}

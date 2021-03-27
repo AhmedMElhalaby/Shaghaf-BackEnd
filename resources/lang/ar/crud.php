@@ -14,7 +14,27 @@ return [
         'is_active' => 'الحالة',
         'avatar' => 'الصورة',
     ],
-    'User'=>[
+    'Provider'=>[
+        'crud_names' => 'مزودي الخدمة',
+        'crud_name' => 'مزود الخدمة',
+        'crud_the_name' => 'المزود',
+        'name' => 'الاسم',
+        'email' => 'البريد الالكتروني',
+        'mobile' => 'رقم الجوال',
+        'avatar' => 'الصورة',
+        'type' => 'نوع البروفايل',
+        'bio' => 'نبذة',
+        'balance' => 'الرصيد',
+        'favorite_car' => 'السيارة المفضلة',
+        'app_locale' => 'اللغة',
+        'is_active' => 'الحالة',
+        'created_at' => 'تاريخ الإنشاء',
+        'orders_count' => 'عدد الطلبات',
+        'Links'=>[
+            'active_mobile_email'=>'تفعيل الايميل والجوال'
+        ]
+    ],
+    'Customer'=>[
         'crud_names' => 'المستخدمين',
         'crud_name' => 'مستخدم',
         'crud_the_name' => 'المستخدم',
@@ -29,6 +49,7 @@ return [
         'app_locale' => 'اللغة',
         'is_active' => 'الحالة',
         'created_at' => 'تاريخ الإنشاء',
+        'orders_count' => 'عدد الطلبات',
         'Links'=>[
             'active_mobile_email'=>'تفعيل الايميل والجوال'
         ]
@@ -57,6 +78,13 @@ return [
         'answer_ar' => 'الإجابة عربي',
         'is_active' => 'الحالة',
     ],
+    'FaqCategory'=>[
+        'crud_names' => 'تصنيفات الأسئلة الشائعة',
+        'crud_name' => 'تصنيف الأسئلة الشائعة',
+        'crud_the_name' => 'التصنيف',
+        'name' => 'الاسم',
+        'name_ar' => 'الاسم عربي',
+    ],
     'Ticket'=>[
         'crud_names' => 'التذاكر',
         'crud_name' => 'تذكرة',
@@ -65,6 +93,8 @@ return [
         'user_id' => 'المستخدم',
         'title' => 'العنوان',
         'message' => 'الرسالة',
+        'name' => 'Name',
+        'email' => 'Email',
         'ticket_response' => 'الرد',
         'response_form' => 'الرد على التذكرة',
         'status' => 'الحالة',
@@ -96,14 +126,18 @@ return [
         'value' => 'القيمة',
         'type' => 'نوع الحركة',
         'Types' => [
-            '1'=>'إيداع',
-            '2'=>'سحب',
-            '3'=>'معلق',
+            ''.Constant::TRANSACTION_TYPES['Deposit']=>'إيداع',
+            ''.Constant::TRANSACTION_TYPES['Withdraw']=>'سحب',
+            ''.Constant::TRANSACTION_TYPES['Holding']=>'معلق',
         ],
         'payment_token' => 'كود الدفع',
         'ref_id' => 'العملية المرتبطة',
         'created_at' => 'التاريخ',
         'status' => 'الحالة',
+        'Statuses'=>[
+            ''.Constant::TRANSACTION_STATUS['Pending']=>'بالإنتظار',
+            ''.Constant::TRANSACTION_STATUS['Paid']=>'مدفوع',
+        ]
     ],
     'Category'=>[
         'crud_names' => 'التصنيفات',
@@ -112,7 +146,11 @@ return [
         'parent_id' => 'التصنيف الرئيسي',
         'name' => 'الاسم',
         'name_ar' => 'الاسم عربي',
+        'description' => 'الوصف',
+        'description_ar' => 'الوصف عربي',
         'image' => 'الصورة',
+        'has_product' => 'يسمح بمنتج',
+        'has_service' => 'يسمح بخدمة',
         'is_active' => 'الحالة',
     ],
     'Country'=>[
@@ -142,5 +180,43 @@ return [
         'title' => 'العنوان',
         'title_ar' => 'العنوان عربي',
         'is_active' => 'الحالة',
+    ],
+    'Portfolio'=>[
+        'crud_names' => 'معرض الأعمال',
+        'crud_name' => 'عمل',
+        'crud_the_name' => 'العمل',
+        'media' => 'صورة العمل',
+        'description' => 'وصف العمل',
+    ],
+    'Order'=>[
+        'crud_names' => 'الطلبات',
+        'crud_name' => 'طلب',
+        'crud_the_name' => 'الطلب',
+        'Statuses' => [
+            ''.Constant::ORDER_STATUSES['New']=>'جديد',
+            ''.Constant::ORDER_STATUSES['Accept']=>'مقبول',
+            ''.Constant::ORDER_STATUSES['Rejected']=>'مرفوض',
+            ''.Constant::ORDER_STATUSES['Canceled']=>'ملغي',
+            ''.Constant::ORDER_STATUSES['Payed']=>'مدفوع',
+            ''.Constant::ORDER_STATUSES['InProgress']=>'قيد التنفيذ',
+            ''.Constant::ORDER_STATUSES['Delivered']=>'تم التوصيل',
+            ''.Constant::ORDER_STATUSES['Received']=>'تم التسليم',
+            ''.Constant::ORDER_STATUSES['NotDelivered']=>'لم يتم التوصيل',
+            ''.Constant::ORDER_STATUSES['NotReceived']=>'لم يتم التسليم',
+            ''.Constant::ORDER_STATUSES['ReceivedByAdmin']=>'مغلق تم التسليم',
+            ''.Constant::ORDER_STATUSES['NotReceivedByAdmin']=>'مغلق  لم يتم التسليم',
+        ],
+        'user_id' => 'المستخدم',
+        'freelancer_id' => 'المزود',
+        'product_id' => 'المنتج/الخدمة',
+        'status' => 'الحالة',
+        'statuses_history' => 'تاريخ الحالات',
+        'total' => 'المبلغ',
+        'quantity' => 'الكمية',
+        'price' => 'السعر',
+        'created_at' => 'تاريخ الانشاء',
+        'delivered_date' => 'تاريخ التوصيل',
+        'delivered_time' => 'وقت التوصيل',
+
     ],
 ];

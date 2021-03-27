@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\User\UserResource;
-use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @property mixed device_token
@@ -12,35 +12,14 @@ use App\Traits\ResponseTrait;
  */
 class RefreshRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'device_type' => 'required|string',
             'device_token' => 'required|string'
         ];
     }
-    public function attributes()
-    {
-        return [];
-    }
-    public function persist()
+    public function run(): JsonResponse
     {
         $logged = $this->user();
         $logged->setDeviceToken($this->device_token);

@@ -1,4 +1,5 @@
 @extends('AhmedPanel.crud.main')
+@section('title') | {{__('crud.'.$lang.'.crud_names')}} @endsection
 @section('content')
 <div class="row">
     <div class="col-md-12">
@@ -62,7 +63,7 @@
         </div>
     </div>
     <div class="pagination-div">
-        {{ $Objects->appends(\App\Traits\AhmedPanelTrait::SearchAppends($Columns))->links() }}
+        {{ $Objects->appends(\App\Traits\AhmedPanelTrait::SearchAppends($Columns))->links('pagination::default') }}
     </div>
 </div>
 @endsection

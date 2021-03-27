@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property integer id
  * @property mixed user_id
+ * @property mixed name
+ * @property mixed email
  * @property mixed title
  * @property mixed message
  * @property mixed attachment
@@ -18,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     protected $table = 'tickets';
-    protected $fillable = ['user_id','title','message','attachment','status'];
+    protected $fillable = ['user_id','name','email','title','message','attachment','status'];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -56,6 +58,38 @@ class Ticket extends Model
     public function setUserId($user_id): void
     {
         $this->user_id = $user_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void
+    {
+        $this->email = $email;
     }
 
     /**

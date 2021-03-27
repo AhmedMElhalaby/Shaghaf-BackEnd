@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\User\UserResource;
-use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -13,35 +13,14 @@ use Illuminate\Support\Facades\Hash;
  */
 class PasswordRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'old_password' => 'required|string|min:6',
             'password' => 'required|string|min:6|confirmed',
         ];
     }
-    public function attributes()
-    {
-        return [];
-    }
-    public function persist()
+    public function run(): JsonResponse
     {
         $logged = $this->user();
         if(Hash::check($this->old_password,$logged->password)){

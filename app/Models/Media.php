@@ -66,6 +66,15 @@ class Media extends Model
         $this->file = Functions::StoreImageModel($file,'media');
     }
 
+    public function getFileVideo(): string
+    {
+        return $this->file;
+    }
+    public function setFileVideo($file) : void
+    {
+        $this->file = $file;
+    }
+
     /**
      * @return int
      */

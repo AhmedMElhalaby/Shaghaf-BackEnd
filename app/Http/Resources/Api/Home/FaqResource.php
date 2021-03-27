@@ -7,13 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class FaqResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $Objects = array();
         $Objects['id'] = $this->id;

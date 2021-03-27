@@ -38,7 +38,7 @@
                 <div class="card-header " data-background-color="{{ config('app.color') }}">
                     <h4 class="title" style="display: inline-block">{{__('admin.show')}} {{__('crud.'.$lang.'.crud_the_name')}}</h4>
                     @if($Object->getStatus() == \App\Helpers\Constant::TICKETS_STATUS['Open'])
-                        <a href="{{url('user_managements/tickets/'.$Object->getId().'/close')}}" class="btn btn-white pull-right" style="margin: 0"><i class="fa fa-window-close"></i>   {{__('admin.close')}}</a>
+                        <a href="{{url('user_managements/tickets/'.$Object->getId().'/close')}}" class="btn btn-white" style="margin: 0;float: @if(app()->getLocale()=='ar') left @else right @endif"><i class="fa fa-window-close"></i>   {{__('admin.close')}}</a>
                     @endif
 
                 </div>
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if($Object->getStatus() == \App\Helpers\Constant::TICKETS_STATUS['Open'])
+                        @if($Object->getStatus() == \App\Helpers\Constant::TICKETS_STATUS['Open'] && $Object->getUserId() != null)
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-content table-responsive">

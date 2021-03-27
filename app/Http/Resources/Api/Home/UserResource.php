@@ -2,28 +2,24 @@
 
 namespace App\Http\Resources\Api\Home;
 
-use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\FreelancerCategory;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  Request  $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $Object['id'] = $this->getId();
         $Object['name'] = $this->getName();
         $Object['mobile'] = $this->getMobile();
-        $Object['city_id'] = $this->getCityId();
-        $Object['City'] = new CityResource($this->city);
         $Object['email'] = $this->getEmail();
-        $Object['avatar'] = $this->getAvatar();
+        $Object['bio'] = $this->getBio();
+        $Object['gender'] = $this->getGender();
+        $Object['avatar'] = asset($this->getAvatar());
         $Object['lat'] = $this->getLat();
         $Object['lng'] = $this->getLng();
+        $Object['rate'] = $this->getRate();
         return $Object;
     }
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\User\UserResource;
 use App\Models\VerifyAccounts;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -15,14 +16,7 @@ use Illuminate\Support\Facades\DB;
  */
 class VerifyForm extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'code' => 'required|string',
@@ -30,15 +24,11 @@ class VerifyForm extends ApiRequest
 
         ];
     }
-    public function attributes()
-    {
-        return [];
-    }
-    public function persist()
+    public function run(): JsonResponse
     {
         $logged = auth('api')->user();
-        $verify = VerifyAccounts::where('user_id',$logged->id)->where('type',$this->type)->first();
-        if($this->code != $verify->code)
+        $verify = VerifyAccounts::where('user_id',$logged->getId())->where('type',$this->type)->first();
+        if($this->code != $verify->getCode())
             return $this->failJsonResponse([__('auth.failed')]);
         if ($this->type == Constant::VERIFICATION_TYPE['Mobile']){
             if($logged->getMobileVerifiedAt() != null)
@@ -52,7 +42,7 @@ class VerifyForm extends ApiRequest
                 $logged->setEmailVerifiedAt(now());
         }
         $logged->save();
-        DB::table('oauth_access_tokens')->where('user_id', $logged->id)->delete();
+        DB::table('oauth_access_tokens')->where('user_id', $logged->getId())->delete();
         $tokenResult = $logged->createToken('Personal Access Token');
         $token = $tokenResult->token;
         $token->save();

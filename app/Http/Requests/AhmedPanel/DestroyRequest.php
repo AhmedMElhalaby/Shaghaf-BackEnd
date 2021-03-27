@@ -26,7 +26,7 @@ class DestroyRequest extends FormRequest
     {
         return [];
     }
-    public function preset($crud){
+    public function run($crud){
         $Object = $crud->getEntity()->find($this->id);
         $Object->delete();
         return redirect($crud->getRedirect())->with('status', __('admin.messages.deleted_successfully'));

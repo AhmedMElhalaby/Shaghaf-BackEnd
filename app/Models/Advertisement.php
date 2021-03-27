@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer id
+ * @property mixed user_id
  * @property string title
  * @property string title_ar
  * @property string image
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Advertisement extends Model
 {
     protected $table = 'advertisements';
-    protected $fillable = ['title','title_ar','image','is_active'];
+    protected $fillable = ['user_id','title','title_ar','image','is_active'];
 
     /**
      * @return int
@@ -30,6 +31,22 @@ class Advertisement extends Model
     public function setId(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     */
+    public function setUserId($user_id): void
+    {
+        $this->user_id = $user_id;
     }
 
     /**

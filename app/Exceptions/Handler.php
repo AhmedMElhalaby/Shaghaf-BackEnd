@@ -57,7 +57,12 @@ class Handler extends ExceptionHandler
     {
         if ( $e instanceof AuthorizationException) {
             if ($request->isJson() || $request->ajax() || $request->wantsJson())
-                return $this->failJsonResponse([__( 'auth.unauthorized')]);
+                return $this->failJsonResponse([__( 'auth.unauthorized')],401);
+        }
+        if (!$this->isHttpException($e)) {
+            if ($request->isJson() || $request->ajax() || $request->wantsJson()){
+                return $this->errorJsonResponse([$e->getMessage()],['File'=>$e->getFile(),'Line'=>$e->getLine()],500);
+            }
         }
         return parent::render($request, $e);
     }
@@ -69,7 +74,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return $this->failJsonResponse([__( 'auth.unauthenticated')]);
+            return $this->failJsonResponse([__( 'auth.unauthenticated')],401);
         }
         return redirect()->guest('login');
     }

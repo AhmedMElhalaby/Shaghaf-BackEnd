@@ -4,40 +4,50 @@ namespace App\Models;
 
 use App\Helpers\Functions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @property integer id
- * @property mixed name
- * @property mixed email
- * @property mixed mobile
- * @property mixed password
- * @property mixed type
- * @property mixed country_id
- * @property mixed city_id
- * @property mixed avatar
- * @property mixed bio
- * @property mixed gender
- * @property mixed iban_number
- * @property mixed identity_image
- * @property mixed device_token
- * @property mixed device_type
- * @property mixed lat
- * @property mixed lng
- * @property mixed email_verified_at
- * @property mixed mobile_verified_at
- * @property mixed app_locale
- * @property mixed is_available
- * @property mixed is_active
+ * @property string|null name
+ * @property string|null email
+ * @property string|null mobile
+ * @property string|null password
+ * @property string|null type
+ * @property string|null country_id
+ * @property string|null city_id
+ * @property string|null avatar
+ * @property string|null bio
+ * @property string|null gender
+ * @property string|null iban_number
+ * @property string|null identity_image
+ * @property string|null portfolio_id
+ * @property string|null device_token
+ * @property string|null device_type
+ * @property string|null lat
+ * @property string|null lng
+ * @property string|null provider_type
+ * @property string|null company_name
+ * @property string|null maroof_cert
+ * @property string|null commercial_cert
+ * @property string|null profile_completed
+ * @property string|null rate
+ * @property string|null email_verified_at
+ * @property string|null mobile_verified_at
+ * @property string|null order_count
+ * @property string|null app_locale
+ * @property string|null is_available
+ * @property boolean is_active
  * @method User find(int $id)
  */
 class User extends Authenticatable
 {
     use Notifiable,HasApiTokens;
 
-    protected $fillable = ['name','email','mobile','password','type','country_id','city_id','avatar','bio','gender','iban_number','identity_image','device_token','device_type','lat','lng','email_verified_at','mobile_verified_at','app_locale','is_available','is_active',];
+    protected $fillable = ['name','email','mobile','type','country_id','city_id','avatar','bio','gender','iban_number','identity_image','portfolio_id','device_token','device_type','rate','provider_type','company_name','maroof_cert','commercial_cert','profile_completed','lat','lng','email_verified_at','mobile_verified_at','app_locale','order_count','is_available','is_active',];
 
     protected $hidden = ['password'];
 
@@ -46,14 +56,10 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
-//    protected static function boot()
-//    {
-//        parent::boot();
-//        static::deleting(function($Object) {
-////            $doctor = Doctor::where('user_id',$object->id)->first();
-////            $doctor->delete();
-//        });
-//    }
+    public function portfolios(): hasMany
+    {
+        return $this->hasMany(Portfolio::class);
+    }
     /**
      * @return int
      */
@@ -73,7 +79,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -89,7 +95,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -105,7 +111,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getMobile()
+    public function getMobile(): ?string
     {
         return $this->mobile;
     }
@@ -121,7 +127,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -131,13 +137,13 @@ class User extends Authenticatable
      */
     public function setPassword($password): void
     {
-        $this->password = $password;
+        $this->password = Hash::make($password);
     }
 
     /**
      * @return mixed
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -153,7 +159,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getCountryId()
+    public function getCountryId(): ?string
     {
         return $this->country_id;
     }
@@ -169,7 +175,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getCityId()
+    public function getCityId(): ?string
     {
         return $this->city_id;
     }
@@ -201,7 +207,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getBio()
+    public function getBio(): ?string
     {
         return $this->bio;
     }
@@ -217,7 +223,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getGender()
+    public function getGender(): ?string
     {
         return $this->gender;
     }
@@ -233,7 +239,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getIbanNumber()
+    public function getIbanNumber(): ?string
     {
         return $this->iban_number;
     }
@@ -265,7 +271,23 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getDeviceToken()
+    public function getPortfolioId(): ?string
+    {
+        return $this->portfolio_id;
+    }
+
+    /**
+     * @param mixed $portfolio_id
+     */
+    public function setPortfolioId($portfolio_id): int
+    {
+        $this->portfolio_id = $portfolio_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeviceToken(): ?string
     {
         return $this->device_token;
     }
@@ -281,7 +303,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getDeviceType()
+    public function getDeviceType(): ?string
     {
         return $this->device_type;
     }
@@ -297,7 +319,103 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getLat()
+    public function getRate(): ?string
+    {
+        return $this->rate;
+    }
+
+    /**
+     * @param mixed $rate
+     */
+    public function setRate($rate): void
+    {
+        $this->rate = $rate;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProviderType(): ?string
+    {
+        return $this->provider_type;
+    }
+
+    /**
+     * @param mixed $provider_type
+     */
+    public function setProviderType($provider_type): void
+    {
+        $this->provider_type = $provider_type;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCompanyName(): ?string
+    {
+        return $this->company_name;
+    }
+
+    /**
+     * @param mixed $company_name
+     */
+    public function setCompanyName($company_name): void
+    {
+        $this->company_name = $company_name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMaroofCert(): ?string
+    {
+        return ($this->maroof_cert)?asset($this->maroof_cert):null;
+    }
+
+    /**
+     * @param mixed $maroof_cert
+     */
+    public function setMaroofCert($maroof_cert): void
+    {
+        $this->maroof_cert = Functions::StoreImageModel($maroof_cert,'users/maroof_cert');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCommercialCert(): ?string
+    {
+        return ($this->commercial_cert)?asset($this->commercial_cert):null;
+    }
+
+    /**
+     * @param mixed $commercial_cert
+     */
+    public function setCommercialCert($commercial_cert): void
+    {
+        $this->commercial_cert = Functions::StoreImageModel($commercial_cert,'users/commercial_cert');
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProfileCompleted(): ?string
+    {
+        return $this->profile_completed;
+    }
+
+    /**
+     * @param string|null $profile_completed
+     */
+    public function setProfileCompleted(?string $profile_completed): void
+    {
+        $this->profile_completed = $profile_completed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLat(): ?string
     {
         return $this->lat;
     }
@@ -313,7 +431,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getLng()
+    public function getLng(): ?string
     {
         return $this->lng;
     }
@@ -329,7 +447,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getEmailVerifiedAt()
+    public function getEmailVerifiedAt(): ?string
     {
         return $this->email_verified_at;
     }
@@ -345,7 +463,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getMobileVerifiedAt()
+    public function getMobileVerifiedAt(): ?string
     {
         return $this->mobile_verified_at;
     }
@@ -361,7 +479,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getAppLocale()
+    public function getAppLocale(): ?string
     {
         return $this->app_locale;
     }
@@ -377,7 +495,7 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getIsAvailable()
+    public function getIsAvailable(): ?string
     {
         return $this->is_available;
     }
@@ -391,19 +509,35 @@ class User extends Authenticatable
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getIsActive()
+    public function isIsActive(): bool
     {
         return $this->is_active;
     }
 
     /**
-     * @param mixed $is_active
+     * @param bool $is_active
      */
-    public function setIsActive($is_active): void
+    public function setIsActive(bool $is_active): void
     {
         $this->is_active = $is_active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderCount(): ?string
+    {
+        return $this->order_count;
+    }
+
+    /**
+     * @param mixed $order_count
+     */
+    public function setOrderCount($order_count): void
+    {
+        $this->order_count = $order_count;
     }
 
 }

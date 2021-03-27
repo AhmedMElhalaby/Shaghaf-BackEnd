@@ -1,4 +1,5 @@
 @extends('AhmedPanel.crud.main')
+@section('title') | {{__('admin.add')}} {{__('crud.'.$lang.'.crud_name')}} @endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">

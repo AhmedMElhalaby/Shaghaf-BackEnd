@@ -8,43 +8,34 @@ use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\Transaction\TransactionResource;
 use App\Models\Transaction;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * @property mixed value
+ * @property mixed payment_token
+ */
 class GenerateCheckoutRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'value'=>'required|numeric',
-            'payment_token'=>'required'
         ];
     }
-
-    public function persist()
+    public function run(): JsonResponse
     {
-        $Object = new Transaction();
-        $Object->setType(Constant::TRANSACTION_TYPES['Deposit']);
-        $Object->setValue($this->value);
-        $Object->setStatus(Constant::TRANSACTION_STATUS['Pending']);
-        $Object->setPaymentToken($this->payment_token);
-        $Object->setUserId(auth()->user()->getId());
-        $Object->save();
-        return $this->successJsonResponse([],new TransactionResource($Object),'Transaction');
+        $id = Functions::GenerateCheckout($this->value);
+        if($id['status']){
+            $Object = new Transaction();
+            $Object->setType(Constant::TRANSACTION_TYPES['Deposit']);
+            $Object->setValue($this->value);
+            $Object->setStatus(Constant::TRANSACTION_STATUS['Pending']);
+            $Object->setPaymentToken($id['id']);
+            $Object->setUserId(auth()->user()->getId());
+            $Object->save();
+            return $this->successJsonResponse([],new TransactionResource($Object),'Transaction');
+        }else{
+            return $this->failJsonResponse([$id['message']]);
+        }
     }
 }

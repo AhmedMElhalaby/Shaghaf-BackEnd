@@ -17,20 +17,13 @@ class CategoryController extends Controller
         $this->setEntity(new Category());
         $this->setTable('categories');
         $this->setLang('Category');
-        $this->setColumns([
-            'parent_id'=> [
+        $this->setFilters([
+            'parent_id'=>[
                 'name'=>'parent_id',
-                'type'=>'custom_relation',
-                'relation'=>[
-                    'data'=> Category::all(),
-                    'custom'=>function($Object){
-                        return ($Object)?app()->getLocale() == 'ar'?$Object->getNameAr():$Object->getName():'-';
-                    },
-                    'entity'=>'parent'
-                ],
-                'is_searchable'=>true,
-                'order'=>true
-            ],
+                'type'=>'whereNull',
+            ]
+        ]);
+        $this->setColumns([
             'image'=> [
                 'name'=>'image',
                 'type'=>'image',
@@ -57,18 +50,6 @@ class CategoryController extends Controller
             ],
         ]);
         $this->setFields([
-            'parent_id'=> [
-                'name'=>'parent_id',
-                'type'=>'custom_relation',
-                'relation'=>[
-                    'data'=> Category::all(),
-                    'custom'=>function($Object){
-                        return app()->getLocale() == 'ar'?$Object->getNameAr():$Object->getName();
-                    },
-                    'entity'=>'parent'
-                ],
-                'is_required'=>false
-            ],
             'name'=> [
                 'name'=>'name',
                 'type'=>'text',
@@ -79,11 +60,31 @@ class CategoryController extends Controller
                 'type'=>'text',
                 'is_required'=>true
             ],
+            'description'=> [
+                'name'=>'description',
+                'type'=>'text',
+                'is_required'=>true
+            ],
+            'description_ar'=> [
+                'name'=>'description_ar',
+                'type'=>'text',
+                'is_required'=>true
+            ],
             'image'=> [
                 'name'=>'image',
                 'type'=>'image',
                 'is_required'=>true,
                 'is_required_update'=>false
+            ],
+            'has_product'=> [
+                'name'=>'has_product',
+                'type'=>'boolean',
+                'is_required'=>true
+            ],
+            'has_service'=> [
+                'name'=>'has_service',
+                'type'=>'boolean',
+                'is_required'=>true
             ],
             'is_active'=> [
                 'name'=>'is_active',

@@ -12,34 +12,20 @@ use Illuminate\Http\JsonResponse;
 
 class TicketController extends Controller
 {
-    use ResponseTrait;
-
-    /**
-     * @param IndexRequest $request
-     * @return JsonResponse
-     */
-    public function index(IndexRequest $request){
-        return $request->persist();
+    public function index(IndexRequest $request): JsonResponse
+    {
+        return $request->run();
     }
-    /**
-     * @param ShowRequest $request
-     * @return JsonResponse
-     */
-    public function show(ShowRequest $request){
-        return $request->persist();
+    public function show(ShowRequest $request): JsonResponse
+    {
+        return $request->run();
     }
-    /**
-     * @param StoreRequest $request
-     * @return JsonResponse
-     */
-    public function store(StoreRequest $request){
-        return $request->persist();
+    public function store(StoreRequest $request): JsonResponse
+    {
+        return $request->run();
     }
-    /**
-     * @param ResponseRequest $request
-     * @return JsonResponse
-     */
-    public function response(ResponseRequest $request){
-        return $request->persist();
+    public function response(ResponseRequest $request): JsonResponse
+    {
+        return $request->run();
     }
 }

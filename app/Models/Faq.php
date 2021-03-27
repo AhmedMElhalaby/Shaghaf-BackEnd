@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property integer id
  * @property string|null question
  * @property string|null question_ar
- * @property mixed faq_category_id
  * @property mixed answer
  * @property mixed answer_ar
  * @property boolean is_active
@@ -18,11 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 class Faq extends Model
 {
     protected $table = 'faqs';
-    protected $fillable = ['faq_category_id','question','question_ar','answer','answer_ar','is_active'];
+    protected $fillable = ['question','question_ar','answer','answer_ar','is_active'];
 
-    public function faq_category(){
-        return $this->belongsTo(FaqCategory::class);
-    }
     /**
      * @return int
      */
@@ -117,22 +114,6 @@ class Faq extends Model
     public function setIsActive(bool $is_active): void
     {
         $this->is_active = $is_active;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFaqCategoryId()
-    {
-        return $this->faq_category_id;
-    }
-
-    /**
-     * @param mixed $faq_category_id
-     */
-    public function setFaqCategoryId($faq_category_id): void
-    {
-        $this->faq_category_id = $faq_category_id;
     }
 
 }

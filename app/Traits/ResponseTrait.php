@@ -28,7 +28,7 @@ trait ResponseTrait
         );
     }
 
-    protected function failJsonResponse(array $message, $code = 200)
+    protected function failJsonResponse(array $message, $code = 200,$data = [])
     {
         return response()->json(
             [
@@ -37,7 +37,7 @@ trait ResponseTrait
                     'message' => $message,
                     'code' => $code,
                 ],
-                'data' => [],
+                'data' => $data,
                 'paging'=>null
 
             ],
@@ -45,7 +45,7 @@ trait ResponseTrait
         );
     }
 
-    protected function errorJsonResponse(array $message,$data = [],$data_name = 'data',$paging = null, $code = 200)
+    protected function errorJsonResponse(array $message,$data = [], $code = 200)
     {
 
         return response()->json(
@@ -55,8 +55,8 @@ trait ResponseTrait
                     'message' => $message,
                     'code' => $code,
                 ],
-                ''.$data_name => $data,
-                'paging'=>$paging
+                'Error' => $data,
+                'paging'=>null
 
             ],
             200

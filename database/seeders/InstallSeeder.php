@@ -37,12 +37,15 @@ class InstallSeeder extends Seeder
             'Permissions',
             'Settings',
             'Faq',
-            'Users',
-            'Tickets',
             'Categories',
+            'SubCategories',
             'Countries',
             'Cities',
             'Advertisements',
+            'Orders',
+            'Customers',
+            'Providers',
+            'Tickets',
         ];
         $Settings = [
             'privacy'=>[
@@ -99,6 +102,22 @@ class InstallSeeder extends Seeder
                 'value'=>'',
                 'value_ar'=>'',
                 'key'=>'mobile',
+                'type'=>Constant::SETTING_TYPE['Values'],
+            ],
+            'holding_period'=>[
+                'name'=>'Holding Period',
+                'name_ar'=>'فترة الحجز',
+                'value'=>'10',
+                'value_ar'=>'10',
+                'key'=>'holding_period',
+                'type'=>Constant::SETTING_TYPE['Values'],
+            ],
+            'commission'=>[
+                'name'=>'Commission',
+                'name_ar'=>'العمولة',
+                'value'=>'2',
+                'value_ar'=>'2',
+                'key'=>'commission',
                 'type'=>Constant::SETTING_TYPE['Values'],
             ],
         ];

@@ -35,16 +35,15 @@ class TicketController extends Controller
                 'is_searchable'=>true,
                 'order'=>true
             ],
-            'user_id'=> [
-                'name'=>'user_id',
-                'type'=>'custom_relation',
-                'relation'=>[
-                    'data'=> User::all(),
-                    'custom'=>function($Object){
-                        return $Object->name;
-                    },
-                    'entity'=>'user'
-                ],
+            'name'=> [
+                'name'=>'name',
+                'type'=>'text',
+                'is_searchable'=>true,
+                'order'=>true
+            ],
+            'email'=> [
+                'name'=>'email',
+                'type'=>'text',
                 'is_searchable'=>true,
                 'order'=>true
             ],

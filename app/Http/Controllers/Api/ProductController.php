@@ -8,51 +8,33 @@ use App\Http\Requests\Api\Product\ShowRequest;
 use App\Http\Requests\Api\Product\StoreRequest;
 use App\Http\Requests\Api\Product\UpdateRequest;
 use App\Http\Requests\Api\Product\DestroyRequest;
-use App\Traits\ResponseTrait;
+use App\Http\Requests\Api\Product\DestroyMediaRequest;
 use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
-    use ResponseTrait;
-
-    /**
-     * @param IndexRequest $request
-     * @return JsonResponse
-     */
     public function index(IndexRequest $request): JsonResponse
     {
-        return $request->persist();
+        return $request->run();
     }
-    /**
-     * @param ShowRequest $request
-     * @return JsonResponse
-     */
     public function show(ShowRequest $request): JsonResponse
     {
-        return $request->persist();
+        return $request->run();
     }
-    /**
-     * @param StoreRequest $request
-     * @return JsonResponse
-     */
     public function store(StoreRequest $request): JsonResponse
     {
-        return $request->persist();
+        return $request->run();
     }
-    /**
-     * @param UpdateRequest $request
-     * @return JsonResponse
-     */
     public function update(UpdateRequest $request): JsonResponse
     {
-        return $request->persist();
+        return $request->run();
     }
-    /**
-     * @param DestroyRequest $request
-     * @return JsonResponse
-     */
     public function destroy(DestroyRequest $request): JsonResponse
     {
-        return $request->persist();
+        return $request->run();
+    }
+    public function destroy_media(DestroyMediaRequest $request): JsonResponse
+    {
+        return $request->run();
     }
 }

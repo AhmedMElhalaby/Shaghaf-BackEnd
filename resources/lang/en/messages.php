@@ -14,6 +14,7 @@ return [
     */
 
     'object_not_found' => 'Object Not Found',
+    'object_exists' => 'Object already exists',
     'coupon_not_found' => 'Coupon Not Found',
     'deleted_successful' => 'Deleted Successfully !',
     'created_successful' => 'Created Successfully !',
@@ -34,14 +35,16 @@ return [
     'date_reserved'=>'Date Reserved !',
     'offer_expired'=>'Offer Expired !',
     'wrong_sequence'=>'Wrong Sequence !',
-    'you_cannot_add_foods_from_several_provider_at_the_same_time'=>'You cannot add foods from several provider at the same time !',
+    'you_cannot_add_products_from_several_provider_at_the_same_time'=>'You cannot add products from several provider at the same time !',
     'dont_have_permission'=>'Dont have permission !',
-    'dont_have_credit'=>'Dont have enough credit subscribe with one of the subscription packages to bid on this  !',
+    'dont_have_credit'=>'Dont have enough credit!',
     'credit_less_than_last_bid'=>'Credit Less Than Last Bid',
     'bid_less_than_required'=>'Your Bid Less Than Required !',
     'you_cannot_do_it_at_this_time'=>'You can not do this action at this time !',
     'payment_verified'=>'Payment Verified !',
     'payment_not_verified'=>'Payment Not Verified !',
+    'there is no freelancers for this category' =>'There is no freelancer for this category',
+    'Message Sent, we will reply soon' => 'Message Sent, we will reply soon',
     'OrderStatus'=>[
         'New'=>[
             'title'=>'New Order',

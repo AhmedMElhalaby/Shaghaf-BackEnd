@@ -3,11 +3,9 @@
 namespace App\Http\Requests\Api\Auth;
 
 use App\Http\Requests\Api\ApiRequest;
-use App\Http\Resources\Api\User\UserResource;
 use App\Models\PasswordReset;
-use App\Traits\ResponseTrait;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @property mixed code
@@ -15,26 +13,14 @@ use Illuminate\Support\Facades\DB;
  */
 class CheckResetCodeRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
             'mobile' => 'required|numeric|exists:users,mobile',
             'code' => 'required|string',
         ];
     }
-    public function attributes()
-    {
-        return [];
-    }
-    public function persist()
+    public function run(): JsonResponse
     {
         $user = User::where('mobile',$this->mobile)->first();
         $passwordReset = PasswordReset::where('user_id',$user->getId())->first();

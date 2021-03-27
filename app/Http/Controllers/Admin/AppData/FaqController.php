@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin\AppData;
 
 use App\Http\Controllers\Admin\Controller;
 use App\Models\Faq;
-use App\Models\FaqCategory;
-use App\Models\Setting;
 use App\Traits\AhmedPanelTrait;
 
 class FaqController extends Controller

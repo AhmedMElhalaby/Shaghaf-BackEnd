@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property integer id
@@ -12,14 +14,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed product_id
  * @property mixed status
  * @property mixed quantity
+ * @property mixed note
  * @property mixed price
+ * @property mixed total
+ * @property mixed delivered_date
+ * @property mixed delivered_time
  * @property mixed reject_reason
  * @property mixed cancel_reason
+ * @method Order find(mixed $order_id)
  */
 class Order extends Model
 {
     protected $table = 'orders';
-    protected $fillable = ['user_id','freelancer_id','product_id','status','quantity','price','reject_reason','cancel_reason',];
+    protected $fillable = ['user_id','freelancer_id','product_id','status','quantity','price','total','note','delivered_date','delivered_time','reject_reason','cancel_reason'];
 
     public function user(): BelongsTo
     {
@@ -32,6 +39,22 @@ class Order extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class,'product_id');
+    }
+    public function order_statuses(): HasMany
+    {
+        return $this->hasMany(OrderStatus::class);
+    }
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('created_at', 'desc');
+        });
     }
     /**
      * @return int
@@ -122,6 +145,38 @@ class Order extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @param mixed $note
+     */
+    public function setNote($note): void
+    {
+        $this->note = $note;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveredDate()
+    {
+        return $this->delivered_date;
+    }
+
+    /**
+     * @param mixed $delivered_date
+     */
+    public function setDeliveredDate($delivered_date): void
+    {
+        $this->delivered_date = $delivered_date;
+    }
+
+    /**
      * @param mixed $quantity
      */
     public function setQuantity($quantity): void
@@ -143,6 +198,22 @@ class Order extends Model
     public function setPrice($price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * @param mixed $total
+     */
+    public function setTotal($total): void
+    {
+        $this->total = $total;
     }
 
     /**
@@ -176,5 +247,23 @@ class Order extends Model
     {
         $this->cancel_reason = $cancel_reason;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveredTime()
+    {
+        return $this->delivered_time;
+    }
+
+    /**
+     * @param mixed $delivered_time
+     */
+    public function setDeliveredTime($delivered_time): void
+    {
+        $this->delivered_time = $delivered_time;
+    }
+
+
 
 }

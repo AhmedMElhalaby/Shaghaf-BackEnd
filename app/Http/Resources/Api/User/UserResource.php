@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\User;
 
+use App\Helpers\Constant;
 use App\Http\Resources\Api\Home\CityResource;
 use App\Http\Resources\Api\Home\CountryResource;
 use App\Models\Notification;
@@ -11,24 +12,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class UserResource extends JsonResource
 {
     protected $token;
-
-    /**
-     * ExportResource constructor.
-     * @param $resource
-     * @param array $token
-     */
     public function __construct($resource, $token =null)
     {
         $this->token = $token;
         parent::__construct($resource);
     }
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $Object['id'] = $this->getId();
         $Object['name'] = $this->getName();
@@ -48,6 +37,25 @@ class UserResource extends JsonResource
         $Object['lat'] = $this->getLat();
         $Object['lng'] = $this->getLng();
         $Object['type'] = $this->getType();
+        $Object['provider_type'] = $this->getProviderType();
+        $Object['company_name'] = $this->getCompanyName();
+        $Object['maroof_cert'] = $this->getMaroofCert();
+        $Object['commercial_cert'] = $this->getCommercialCert();
+        if ($this->getProviderType() == Constant::PROVIDER_TYPE['Individual']) {
+            if ($this->getIdentityImage() != null && $this->getMaroofCert() !=null) {
+                $Object['profile_completed'] = true;
+            }else{
+                $Object['profile_completed'] = false;
+            }
+        }else{
+            if ($this->getIdentityImage() != null && $this->getCommercialCert() !=null) {
+                $Object['profile_completed'] = true;
+            }else{
+                $Object['profile_completed'] = false;
+            }
+        }
+        $Object['rate'] = $this->getRate();
+        $Object['Portfolios'] = PortfolioResource::collection($this->portfolios);
         $Object['is_available'] = $this->getIsAvailable();
         $Object['app_locale'] = $this->getAppLocale();
         $Object['notification_count'] = Notification::where('user_id',$this->getId())->where('read_at',null)->count();

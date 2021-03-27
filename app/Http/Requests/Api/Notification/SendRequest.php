@@ -9,39 +9,28 @@ use App\Http\Resources\Api\General\NotificationResource;
 use App\Models\Notification;
 use App\Models\User;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * @property mixed user_id
+ * @property mixed title
+ * @property mixed message
+ */
 class SendRequest extends ApiRequest
 {
-    use ResponseTrait;
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
+            'title'=>'required|string',
             'message'=>'required|string',
             'user_id'=>'required|exists:users,id'
         ];
     }
 
-    public function persist()
+    public function run(): JsonResponse
     {
-        $User = (new User())->find($this->user_id);
-        $Logged = auth()->user();
-        Functions::SendNotification($User,'You have new message',$this->message,'لديك رسالة جديدة',$this->message,null,Constant::NOTIFICATION_TYPE['Chat']);
+        $User = (new User)->find($this->user_id);
+        Functions::SendNotification($User,$this->title,$this->message,$this->title,$this->message,auth()->user()->getId(),Constant::NOTIFICATION_TYPE['Message'],false);
         return $this->successJsonResponse([__('messages.created_successful')]);
     }
 }
