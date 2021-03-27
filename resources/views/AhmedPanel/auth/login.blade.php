@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('logo.png')}}" />
+    <link rel="icon" type="image/png" href="{{asset('logo.png')}}" />
     <!-- Bootstrap core CSS     -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
     <!--  Material Dashboard CSS    -->
