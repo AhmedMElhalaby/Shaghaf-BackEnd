@@ -34,7 +34,7 @@
 
     <div class="sidebar" data-color="{{ config('app.color') }}" data-image="{{asset('assets/img/sidebar-1.jpg')}}">
         <div class="logo" style="text-align: center">
-            <img onclick="window.location ='{{url('/')}}'" src="{{asset('logo.svg')}}" width="150" height="90" style="cursor: pointer" alt="">
+            <img onclick="window.location ='{{url('/')}}'" src="{{asset('logo.png')}}" width="150" height="90" style="cursor: pointer" alt="">
 
         </div>
         <div class="sidebar-wrapper">
