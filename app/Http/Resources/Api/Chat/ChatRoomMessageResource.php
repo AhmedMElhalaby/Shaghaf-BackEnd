@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\Chat;
 
+use App\Helpers\Constant;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,7 +13,11 @@ class ChatRoomMessageResource extends JsonResource
         $Objects = array();
         $Objects['id'] = $this->getId();
         $Objects['chat_room_id'] = $this->getChatRoomId();
-        $Objects['message'] = $this->getMessage();
+        $message = $this->getMessage();
+        if ($this->getType() != Constant::CHAT_MESSAGE_TYPE['Text']){
+            $message = asset($this->getMessage());
+        }
+        $Objects['message'] = $message;
         $Objects['type'] = $this->getType();
         $Objects['user_id'] = $this->getUserId();
         $Objects['read_at'] = $this->getReadAt();
