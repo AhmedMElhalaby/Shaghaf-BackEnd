@@ -129,7 +129,7 @@ class UpdateRequest extends ApiRequest
             }
 
             case Constant::ORDER_STATUSES['NotReceived']:{
-                if ($Object->getStatus() !=Constant::ORDER_STATUSES['Accept']) {
+                if ($Object->getStatus() !=Constant::ORDER_STATUSES['Delivered']) {
                     return $this->failJsonResponse([__('messages.wrong_sequence')]);
                 }
                 $Object->setStatus(Constant::ORDER_STATUSES['NotReceived']);
@@ -139,7 +139,7 @@ class UpdateRequest extends ApiRequest
                 break;
             }
             case Constant::ORDER_STATUSES['NotDelivered']:{
-                if ($Object->getStatus() !=Constant::ORDER_STATUSES['Delivered']) {
+                if ($Object->getStatus() !=Constant::ORDER_STATUSES['InProgress']) {
                     return $this->failJsonResponse([__('messages.wrong_sequence')]);
                 }
                 $Object->setStatus(Constant::ORDER_STATUSES['NotDelivered']);
