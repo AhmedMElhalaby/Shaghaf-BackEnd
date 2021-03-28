@@ -59,11 +59,11 @@ class Handler extends ExceptionHandler
             if ($request->isJson() || $request->ajax() || $request->wantsJson())
                 return $this->failJsonResponse([__( 'auth.unauthorized')],401);
         }
-        if (!$this->isHttpException($e)) {
-            if ($request->isJson() || $request->ajax() || $request->wantsJson()){
-                return $this->errorJsonResponse([$e->getMessage()],['File'=>$e->getFile(),'Line'=>$e->getLine()],500);
-            }
-        }
+//        if (!$this->isHttpException($e)) {
+//            if ($request->isJson() || $request->ajax() || $request->wantsJson()){
+//                return $this->errorJsonResponse([$e->getMessage()],['File'=>$e->getFile(),'Line'=>$e->getLine()],500);
+//            }
+//        }
         return parent::render($request, $e);
     }
     /**
