@@ -301,14 +301,14 @@ class Functions
         $url = "https://test.oppwa.com/v1/checkouts";
         $data = "entityId=8ac7a4c774a57b2a0174abf8fe7d085f" .
             "&amount=".$value .
-            "&currency=EUR" .
+            "&currency=SAR" .
             "&paymentType=DB" .
             "&notificationUrl=http://www.example.com/notify";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:Bearer OGE4Mjk0MTc0YjdlY2IyODAxNGI5Njk5MjIwMDE1Y2N8c3k2S0pzVDg='));
+            'Authorization:Bearer OGFjN2E0Yzc3NGE1N2IyYTAxNzRhYmY1ZDZkMDA4NWJ8Rm1CNEpYZFRZSg=='));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
@@ -338,7 +338,7 @@ class Functions
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:Bearer OGE4Mjk0MTc0YjdlY2IyODAxNGI5Njk5MjIwMDE1Y2N8c3k2S0pzVDg='));
+            'Authorization:Bearer OGFjN2E0Yzc3NGE1N2IyYTAxNzRhYmY1ZDZkMDA4NWJ8Rm1CNEpYZFRZSg=='));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
