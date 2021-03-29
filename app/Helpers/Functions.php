@@ -145,7 +145,7 @@ class Functions
     public static function SendSms($msg,$to){
         $ch = curl_init();
         $user = 'FHOTAIBI';
-        $password = 'q1w2e3r4';
+        $password = 'FHotaibi@5588';
         $sender = 'Passion';
         $text = urlencode($msg);
         $encoding = 'UTF8';
