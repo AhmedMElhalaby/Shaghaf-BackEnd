@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin\AppData;
 
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\AppData\Setting\SearchRequest;
+use App\Http\Requests\AhmedPanel\UpdateRequest;
 use App\Models\Setting;
 use App\Traits\AhmedPanelTrait;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class SettingController extends Controller
@@ -35,12 +38,12 @@ class SettingController extends Controller
             'name'=> [
                 'name'=>'name',
                 'type'=>'text',
-                'is_required'=>true
+                'is_required'=>false
             ],
             'name_ar'=> [
                 'name'=>'name_ar',
                 'type'=>'text',
-                'is_required'=>true
+                'is_required'=>false
             ],
             'value'=> [
                 'name'=>'value',
@@ -67,5 +70,25 @@ class SettingController extends Controller
     public function index(SearchRequest $request)
     {
         return $request->preset($this);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @param UpdateRequest $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function update(UpdateRequest $request,$id): RedirectResponse
+    {
+        if (!$request->filled('value_ar')) {
+            $request['value_ar'] = $request->value;
+        }
+        $validator = Validator::make($request->all(),$this->FieldsRules(true,$id));
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        return $request->preset($this,$id);
     }
 }
