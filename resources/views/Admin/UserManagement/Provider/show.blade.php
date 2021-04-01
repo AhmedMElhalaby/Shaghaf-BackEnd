@@ -62,7 +62,7 @@
                                             <th style="border-top: none !important;">{{__('crud.Transaction.created_at')}}</th>
                                         </tr>
                                         </thead>
-                                        <tbody style="width: 300px">
+                                        <tbody style="height: 300px">
                                             @foreach(\App\Models\Transaction::where('user_id',$Object->getId())->get() as $Transaction)
                                                 <tr>
                                                     <td>{{__('crud.Transaction.Types.'.$Transaction->getType())}}</td>
