@@ -52,7 +52,7 @@
                                 <div class="card-header text-center" style="padding: 5px" data-background-color="{{ config('app.color') }}">
                                     <h4 class="title"> {{__('crud.Transaction.crud_names')}}</h4>
                                 </div>
-                                <div class="card-content table-responsive">
+                                <div class="card-content table-responsive" style="height: 312px;overflow: scroll">
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
@@ -62,7 +62,7 @@
                                             <th style="border-top: none !important;">{{__('crud.Transaction.created_at')}}</th>
                                         </tr>
                                         </thead>
-                                        <tbody style="height: 300px">
+                                        <tbody>
                                             @foreach(\App\Models\Transaction::where('user_id',$Object->getId())->get() as $Transaction)
                                                 <tr>
                                                     <td>{{__('crud.Transaction.Types.'.$Transaction->getType())}}</td>
