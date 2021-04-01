@@ -62,7 +62,7 @@
                                             <th style="border-top: none !important;">{{__('crud.Transaction.created_at')}}</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="width: 300px">
                                             @foreach(\App\Models\Transaction::where('user_id',$Object->getId())->get() as $Transaction)
                                                 <tr>
                                                     <td>{{__('crud.Transaction.Types.'.$Transaction->getType())}}</td>
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header text-center" style="padding: 5px" data-background-color="{{ config('app.color') }}">
                                     <h4 class="title"> {{__('crud.Portfolio.crud_names')}}</h4>
@@ -92,8 +92,35 @@
                                         <tbody>
                                         @foreach(\App\Models\Portfolio::where('user_id',$Object->getId())->get() as $Portfolio)
                                             <tr>
-                                                <td><a href="{{asset($Portfolio->getMedia())}}" download><i class="fa fa-download"></i></a></td>
+                                                <td><span><img src="{{asset($Portfolio->getMedia())}}" class="thumbnail" alt="" style="width: 50px;height: 50px"></span></td>
                                                 <td>{{$Portfolio->getDescription()}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header text-center" style="padding: 5px" data-background-color="{{ config('app.color') }}">
+                                    <h4 class="title"> {{__('crud.Product.crud_names')}}</h4>
+                                </div>
+                                <div class="card-content table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th style="border-top: none !important;">{{__('crud.Product.name')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.Product.category_id')}}</th>
+                                            <th style="border-top: none !important;">{{__('crud.Product.price')}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach(\App\Models\Product::where('user_id',$Object->getId())->get() as $Product)
+                                            <tr>
+                                                <td>{{$Product->getName()}}</td>
+                                                <td>@if(app()->getLocale() =='en') {{$Product->category->getName()}}/{{$Product->sub_category->getName()}} @else {{$Product->category->getNameAr()}}/{{$Product->sub_category->getNameAr()}} @endif</td>
+                                                <td>{{$Product->getPrice()}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

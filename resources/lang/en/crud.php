@@ -186,6 +186,16 @@ return [
         'media' => 'Media',
         'description' => 'Description',
     ],
+    'Product'=>[
+        'crud_names' => 'Products',
+        'crud_name' => 'Product',
+        'crud_the_name' => 'The Product',
+        'name' => 'Name',
+        'description' => 'Description',
+        'category_id' => 'Category',
+        'sub_category_id' => 'Sub Category',
+        'price' => 'Price',
+    ],
     'Order'=>[
         'crud_names' => 'Orders',
         'crud_name' => 'Order',

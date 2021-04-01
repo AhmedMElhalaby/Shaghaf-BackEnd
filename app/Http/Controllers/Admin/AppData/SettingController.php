@@ -29,7 +29,10 @@ class SettingController extends Controller
         $this->setColumns([
             'name'=> [
                 'name'=>'name',
-                'type'=>'text',
+                'type'=>'text-custom',
+                'custom'=>function ($Object){
+                    return app()->getLocale() == 'ar'?$Object->getNameAr():$Object->getName();
+                },
                 'is_searchable'=>true,
                 'order'=>true
             ],

@@ -188,6 +188,16 @@ return [
         'media' => 'صورة العمل',
         'description' => 'وصف العمل',
     ],
+    'Product'=>[
+        'crud_names' => 'المنتجات',
+        'crud_name' => 'منتج',
+        'crud_the_name' => 'المنتج',
+        'name' => 'الاسم',
+        'description' => 'الوصف',
+        'category_id' => 'التصنيف',
+        'sub_category_id' => 'التصنيف الفرعي',
+        'price' => 'السعر',
+    ],
     'Order'=>[
         'crud_names' => 'الطلبات',
         'crud_name' => 'طلب',

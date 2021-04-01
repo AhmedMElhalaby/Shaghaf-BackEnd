@@ -128,7 +128,7 @@ h1,h2,h3,h4,h5,h6,p{
     color: var(--main-bg-color) !important;
 }
 a {
-    color: var(--main-bg-color) !important;
+    color: #000 !important;
 }
 .lt-register-btn,.lt-register-btn:hover, .lt-register-btn:focus {
     background: var(--main-bg-color) !important;

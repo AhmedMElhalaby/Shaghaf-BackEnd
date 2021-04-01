@@ -47,13 +47,21 @@
                     <form action="{{url('notification/send')}}" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-md-4 btn-group required">
+                            <div class="col-md-3 btn-group required">
                                 <label for="title">{{__('admin.Home.n_title')}} :</label>
                                 <input type="text" required="" name="title" id="title" class="form-control" placeholder="{{__('admin.Home.n_enter_title')}}">
                             </div>
-                            <div class="col-md-6 btn-group required">
+                            <div class="col-md-5 btn-group required">
                                 <label for="msg">{{__('admin.Home.n_text')}} :</label>
                                 <input type="text" required="" name="msg" id="msg" class="form-control" placeholder="{{__('admin.Home.n_enter_text')}}">
+                            </div>
+                            <div class="col-md-2 btn-group required">
+                                <label for="type">{{__('admin.Home.n_type')}} :</label>
+                                <select name="type" id="type" required class="form-control">
+                                    <option value="0">{{__('admin.Home.n_type_0')}}</option>
+                                    <option value="1">{{__('admin.Home.n_type_1')}}</option>
+                                    <option value="2">{{__('admin.Home.n_type_2')}}</option>
+                                </select>
                             </div>
                             <div class="col-md-1 " style="margin-top: 50px">
                                 <button type="submit" id="send" class="btn btn-primary">{{__('admin.Home.n_send')}}</button>
