@@ -16,7 +16,7 @@ class UserResource extends JsonResource
         $Object['email'] = $this->getEmail();
         $Object['bio'] = $this->getBio();
         $Object['gender'] = $this->getGender();
-        $Object['avatar'] = asset($this->getAvatar());
+        $Object['avatar'] = $this->getAvatar()?asset($this->getAvatar()):asset('default.png');
         $Object['lat'] = $this->getLat();
         $Object['lng'] = $this->getLng();
         $Object['rate'] = $this->getRate();

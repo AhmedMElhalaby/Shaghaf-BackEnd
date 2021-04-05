@@ -64,6 +64,22 @@ class InstallSeeder extends Seeder
                 'key'=>'about',
                 'type'=>Constant::SETTING_TYPE['Page'],
             ],
+            'footer_about'=>[
+                'name'=>'Footer About Us',
+                'name_ar'=>'من نحن الفوتر',
+                'value'=>'Footer About Us',
+                'value_ar'=>' من نحن الفوتر',
+                'key'=>'footer_about',
+                'type'=>Constant::SETTING_TYPE['Page'],
+            ],
+            'goals'=>[
+                'name'=>'Our Goals',
+                'name_ar'=>'أهدافنا',
+                'value'=>'Our Goals',
+                'value_ar'=>'أهدافنا',
+                'key'=>'goals',
+                'type'=>Constant::SETTING_TYPE['Page'],
+            ],
             'terms'=>[
                 'name'=>'Terms And Conditions',
                 'name_ar'=>'الشروط والأحكام',

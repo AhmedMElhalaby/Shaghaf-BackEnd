@@ -33,7 +33,7 @@ class UserResource extends JsonResource
         $Object['identity_image'] = $this->getIdentityImage();
         $Object['mobile_verified_at'] = $this->getMobileVerifiedAt()?Carbon::parse($this->getMobileVerifiedAt())->format('Y-m-d'):null;
         $Object['email_verified_at'] = $this->getEmailVerifiedAt()?Carbon::parse($this->getEmailVerifiedAt())->format('Y-m-d'):null;
-        $Object['avatar'] = asset($this->getAvatar());
+        $Object['avatar'] = $this->getAvatar()?asset($this->getAvatar()):asset('default.png');
         $Object['lat'] = $this->getLat();
         $Object['lng'] = $this->getLng();
         $Object['type'] = $this->getType();
