@@ -299,7 +299,7 @@ class Functions
     }
     public static function GenerateCheckout($value){
         $url = "https://test.oppwa.com/v1/checkouts";
-        $data = "entityId=8ac7a4c774a57b2a0174abf8fe7d085f" .
+        $data = "entityId=8ac9a4cd7868c08d01788a558f537a27" .
             "&amount=".$value .
             "&currency=SAR" .
             "&paymentType=DB" .
@@ -308,7 +308,7 @@ class Functions
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:Bearer OGFjN2E0Yzc3NGE1N2IyYTAxNzRhYmY1ZDZkMDA4NWJ8Rm1CNEpYZFRZSg=='));
+            'Authorization:Bearer OGFjZGE0Y2M3NjQ2YmFmOTAxNzZkN2Y1N2MzZDVkODB8bnJEOUJ6OTdDMg=='));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
@@ -333,12 +333,12 @@ class Functions
     }
     public static function CheckPayment($id){
         $url = "https://test.oppwa.com/v1/checkouts/{$id}/payment";
-        $url .= "?entityId=8ac7a4c774a57b2a0174abf8fe7d085f";
+        $url .= "?entityId=8ac9a4cd7868c08d01788a558f537a27";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:Bearer OGFjN2E0Yzc3NGE1N2IyYTAxNzRhYmY1ZDZkMDA4NWJ8Rm1CNEpYZFRZSg=='));
+            'Authorization:Bearer OGFjZGE0Y2M3NjQ2YmFmOTAxNzZkN2Y1N2MzZDVkODB8bnJEOUJ6OTdDMg=='));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
