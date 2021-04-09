@@ -1,3 +1,3 @@
 <span class="text-primary">
-    {{ $column['relation']['custom']($object->{$column['relation']['entity'] }) }}
+    {{ $column['relation']['custom']($object) }}
 </span>

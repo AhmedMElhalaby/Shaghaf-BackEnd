@@ -202,7 +202,7 @@ trait AhmedPanelTrait
                 ->withErrors($validator)
                 ->withInput();
         }
-        return $request->preset($this);
+        return $request->run($this);
     }
 
     /**

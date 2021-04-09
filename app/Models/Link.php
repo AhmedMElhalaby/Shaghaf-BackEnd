@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,22 +10,27 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property integer id
  * @property string name
  * @property string name_ar
- * @property string key
+ * @property string url
+ * @property string icon
+ * @property integer permission_id
  * @property integer parent_id
- * @method Permission find($id)
  */
-class Permission extends Model
+class Link extends Model
 {
-    protected $table = 'permissions';
-    protected $fillable = ['name','name_ar','key','parent_id'];
+    protected $table = 'links';
+    protected $fillable = ['name','name_ar','url','icon','permission_id','parent_id'];
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Permission::class,'parent_id','id');
+        return $this->belongsTo(Link::class,'parent_id');
+    }
+    public function permission(): BelongsTo
+    {
+        return $this->belongsTo(Permission::class,'permission_id');
     }
     public function children(): HasMany
     {
-        return $this->hasMany(Permission::class,'parent_id','id');
+        return $this->hasMany(Link::class,'parent_id');
     }
     /**
      * @return int
@@ -77,17 +83,33 @@ class Permission extends Model
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getUrl(): string
     {
-        return $this->key;
+        return $this->url;
     }
 
     /**
-     * @param string $key
+     * @param string $url
      */
-    public function setKey(string $key): void
+    public function setUrl(string $url): void
     {
-        $this->key = $key;
+        $this->url = $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param string $icon
+     */
+    public function setIcon(string $icon): void
+    {
+        $this->icon = $icon;
     }
 
     /**
@@ -106,5 +128,20 @@ class Permission extends Model
         $this->parent_id = $parent_id;
     }
 
+    /**
+     * @return int
+     */
+    public function getPermissionId(): int
+    {
+        return $this->permission_id;
+    }
+
+    /**
+     * @param int $permission_id
+     */
+    public function setPermissionId(int $permission_id): void
+    {
+        $this->permission_id = $permission_id;
+    }
 
 }

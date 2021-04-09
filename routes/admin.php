@@ -57,7 +57,7 @@ Route::group([
         'namespace'=>'AppManagement',
     ],function () {
         Route::group([
-            'prefix'=>'admins'
+            'prefix'=>'employees'
         ],function () {
             Route::get('/','AdminController@index');
             Route::get('/create','AdminController@create');
@@ -204,6 +204,13 @@ Route::group([
             Route::get('/','OrderController@index');
             Route::get('/{order}','OrderController@show');
             Route::get('/option/export','OrderController@export');
+        });
+        Route::group([
+            'prefix'=>'chats'
+        ],function () {
+            Route::get('/','ChatController@index');
+            Route::get('/{chat}','ChatController@show');
+            Route::get('/option/export','ChatController@export');
         });
     });
     /*

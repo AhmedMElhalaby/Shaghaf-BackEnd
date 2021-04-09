@@ -21,8 +21,8 @@ class PermissionController extends Controller
         $this->setLang('Permission');
         $this->setCreate(false);
         $this->setColumns([
-            'name'=> [
-                'name'=>'name',
+            session('my_locale') == 'ar'?'name_ar':'name'=> [
+                'name'=>session('my_locale') == 'ar'?'name_ar':'name',
                 'type'=>'text',
                 'is_searchable'=>true,
                 'order'=>true
@@ -31,6 +31,11 @@ class PermissionController extends Controller
         $this->setFields([
             'name'=> [
                 'name'=>'name',
+                'type'=>'text',
+                'is_required'=>true
+            ],
+            'name_ar'=> [
+                'name'=>'name_ar',
                 'type'=>'text',
                 'is_required'=>true
             ],

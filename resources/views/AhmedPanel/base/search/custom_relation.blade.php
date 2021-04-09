@@ -3,7 +3,7 @@
     <select name="{{$Column['name']}}" style="margin: 0;padding: 0" id="{{$Column['name']}}" class="form-control">
         <option value="">-</option>
         @foreach($Column['relation']['data'] as $Model)
-            <option value="{{$Model->id}}" @if(app('request')->input($Column['name']) == $Model->id) selected @endif>{{$Column['relation']['custom']($Model)}}</option>
+            <option value="{{$Model->id}}" @if(app('request')->input($Column['name']) == $Model->id) selected @endif>{{$Column['relation']['custom_search']($Model)}}</option>
         @endforeach
     </select>
 </div>

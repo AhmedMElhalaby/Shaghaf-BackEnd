@@ -3,6 +3,7 @@ namespace Database\Seeders;
 
 use App\Helpers\Constant;
 use App\Models\Admin;
+use App\Models\Link;
 use App\Models\ModelPermission;
 use App\Models\ModelRole;
 use App\Models\Permission;
@@ -28,24 +29,129 @@ class InstallSeeder extends Seeder
         $Admin->setPassword('123456');
         $Admin->save();
         $Role = new Role();
-        $Role->setName('Admin');
+        $Role->setName('Super Admin');
+        $Role->setNameAr('مدير عام');
         $Role->save();
         $Role->refresh();
-        $Permissions = [
-            'Admins',
-            'Roles',
-            'Permissions',
-            'Settings',
-            'Faq',
-            'Categories',
-            'SubCategories',
-            'Countries',
-            'Cities',
-            'Advertisements',
-            'Orders',
-            'Customers',
-            'Providers',
-            'Tickets',
+        $PermissionsAndLinks = [
+            'AppManagement'=>[
+                'name'=>'App Management',
+                'name_ar'=>'إدارة التطبيق',
+                'key'=>'app_managements',
+                'Children'=>[
+                    'Admins'=>[
+                        'name'=>'Employees',
+                        'name_ar'=>'الموظفين',
+                        'key'=>'employees',
+                        'icon'=>'group'
+                    ],
+                    'Roles'=>[
+                        'name'=>'Roles',
+                        'name_ar'=>'الأدوار',
+                        'key'=>'roles',
+                        'icon'=>'accessibility'
+                    ],
+                    'Permissions'=>[
+                        'name'=>'Permissions',
+                        'name_ar'=>'الصلاحيات',
+                        'key'=>'permissions',
+                        'icon'=>'vpn_key'
+                    ],
+                ]
+            ],
+            'AppData'=>[
+                'name'=>'App Data',
+                'name_ar'=>'بيانات التطبيق',
+                'key'=>'app_data',
+                'Children'=>[
+                    'Settings'=>[
+                        'name'=>'Settings',
+                        'name_ar'=>'الإعدادات',
+                        'key'=>'settings',
+                        'icon'=>'settings'
+                    ],
+                    'FAQs'=>[
+                        'name'=>'FAQs',
+                        'name_ar'=>'الأسئلة',
+                        'key'=>'faqs',
+                        'icon'=>'help'
+                    ],
+                    'Categories'=>[
+                        'name'=>'Main Categories',
+                        'name_ar'=>'التصنيفات الرئيسية',
+                        'key'=>'categories',
+                        'icon'=>'category'
+                    ],
+                    'SubCategories'=>[
+                        'name'=>'Sub Categories',
+                        'name_ar'=>'التصنيفات الفرعية',
+                        'key'=>'sub_categories',
+                        'icon'=>'widgets'
+                    ],
+                    'Countries'=>[
+                        'name'=>'Countries',
+                        'name_ar'=>'الدول',
+                        'key'=>'countries',
+                        'icon'=>'language'
+                    ],
+                    'Cities'=>[
+                        'name'=>'Cities',
+                        'name_ar'=>'المدن',
+                        'key'=>'cities',
+                        'icon'=>'location_city'
+                    ],
+                ]
+            ],
+            'AppContent'=>[
+                'name'=>'App Content',
+                'name_ar'=>'محتوى التطبيق',
+                'key'=>'app_content',
+                'Children'=>[
+                    'Advertisements'=>[
+                        'name'=>'Advertisements',
+                        'name_ar'=>'الإعلانات',
+                        'key'=>'advertisements',
+                        'icon'=>'font_download'
+                    ],
+                    'Orders'=>[
+                        'name'=>'Orders',
+                        'name_ar'=>'الطلبات',
+                        'key'=>'orders',
+                        'icon'=>'category'
+                    ],
+                    'Chats'=>[
+                        'name'=>'Chats',
+                        'name_ar'=>'الدردشة',
+                        'key'=>'chats',
+                        'icon'=>'chat'
+                    ],
+                ]
+            ],
+            'UsersManagements'=>[
+                'name'=>'Users Managements',
+                'name_ar'=>'إدارة المستخدمين',
+                'key'=>'user_managements',
+                'Children'=>[
+                    'Customers'=>[
+                        'name'=>'Customers',
+                        'name_ar'=>'الزبائن',
+                        'key'=>'customers',
+                        'icon'=>'group'
+                    ],
+                    'Providers'=>[
+                        'name'=>'Providers',
+                        'name_ar'=>'مزودي الخدمة',
+                        'key'=>'providers',
+                        'icon'=>'people_outline'
+                    ],
+                    'Tickets'=>[
+                        'name'=>'Tickets',
+                        'name_ar'=>'التذاكر',
+                        'key'=>'tickets',
+                        'icon'=>'label'
+                    ],
+                ]
+            ],
         ];
         $Settings = [
             'privacy'=>[
@@ -147,10 +253,36 @@ class InstallSeeder extends Seeder
             $Setting->setType($setting['type']);
             $Setting->save();
         }
-        foreach ($Permissions as $permission){
-            $Permission = new Permission;
-            $Permission->setName($permission);
+        foreach ($PermissionsAndLinks as $object){
+            $Permission = new Permission();
+            $Permission->setName($object['name']);
+            $Permission->setNameAr($object['name_ar']);
+            $Permission->setKey($object['key']);
             $Permission->save();
+            $Permission->refresh();
+            $Link = new Link();
+            $Link->setName($object['name']);
+            $Link->setNameAr($object['name_ar']);
+            $Link->setUrl($object['key']);
+            $Link->setPermissionId($Permission->getId());
+            $Link->save();
+            $Link->refresh();
+            foreach ($object['Children'] as $child){
+                $CPermission = new Permission();
+                $CPermission->setName($child['name']);
+                $CPermission->setNameAr($child['name_ar']);
+                $CPermission->setKey($child['key']);
+                $CPermission->setParentId($Permission->getId());
+                $CPermission->save();
+                $CLink = new Link();
+                $CLink->setName($child['name']);
+                $CLink->setNameAr($child['name_ar']);
+                $CLink->setUrl($child['key']);
+                $CLink->setIcon($child['icon']);
+                $CLink->setParentId($Link->getId());
+                $CLink->setPermissionId($CPermission->getId());
+                $CLink->save();
+            }
         }
         foreach (Permission::all() as $permission){
             $RolePermission = new RolePermission();

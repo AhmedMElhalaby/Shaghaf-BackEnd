@@ -12,7 +12,7 @@ class AdminController extends Controller
 
     public function setup()
     {
-        $this->setRedirect('app_managements/admins');
+        $this->setRedirect('app_managements/employees');
         $this->setEntity(new Admin);
         $this->setTable('admins');
         $this->setLang('Admin');

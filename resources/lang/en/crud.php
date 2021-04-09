@@ -108,6 +108,7 @@ return [
         'crud_the_name' => 'The Permission',
         'id' => '#',
         'name' => 'Name',
+        'name_ar' => 'Name Ar',
     ],
     'Role'=>[
         'crud_names' => 'Roles',
@@ -115,6 +116,7 @@ return [
         'crud_the_name' => 'The Role',
         'id' => '#',
         'name' => 'Name',
+        'name_ar' => 'Name Ar',
         'permissions' => 'Permissions',
     ],
     'Transaction'=>[
@@ -226,4 +228,17 @@ return [
         'delivered_date' => 'Delivered Date',
         'delivered_time' => 'Delivered Time',
     ],
+    'ChatRoom'=>[
+        'crud_names' => 'Chat Rooms',
+        'crud_name' => 'Chat Room',
+        'crud_the_name' => 'The Chat Room',
+        'id' => '#',
+        'users_name' => 'Users',
+    ],
+    'Chat'=>[
+        'name' => 'Chat',
+        'id' => '#',
+        'created_at'=>'Created Date',
+        'message'=>'Message'
+    ]
 ];

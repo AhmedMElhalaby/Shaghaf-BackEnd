@@ -14,7 +14,7 @@ class AdvertisementController extends Controller
     {
         $this->setRedirect('app_content/advertisements');
         $this->setEntity(new Advertisement());
-        $this->setTable('Advertisements');
+        $this->setTable('advertisements');
         $this->setLang('Advertisement');
         $this->setColumns([
             'image'=> [

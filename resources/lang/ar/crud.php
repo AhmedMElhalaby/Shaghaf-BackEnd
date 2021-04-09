@@ -109,6 +109,7 @@ return [
         'crud_the_name' => 'الصلاحية',
         'id' => '#',
         'name' => 'الاسم',
+        'name_ar' => 'الاسم عربي',
     ],
     'Role'=>[
         'crud_names' => 'الأدوار',
@@ -116,6 +117,7 @@ return [
         'crud_the_name' => 'الدور',
         'id' => '#',
         'name' => 'الاسم',
+        'name_ar' => 'الاسم عربي',
         'permissions' => 'الصلاحيات',
     ],
     'Transaction'=>[
@@ -227,6 +229,18 @@ return [
         'created_at' => 'تاريخ الانشاء',
         'delivered_date' => 'تاريخ التوصيل',
         'delivered_time' => 'وقت التوصيل',
-
     ],
+    'ChatRoom'=>[
+        'crud_names' => 'غرف الدردشة',
+        'crud_name' => 'غرفة دردشة',
+        'crud_the_name' => 'الغرفة',
+        'id' => '#',
+        'users_name' => 'مستخدمين الدردشة',
+    ],
+    'Chat'=>[
+        'name' => 'الدردشة',
+        'id' => '#',
+        'created_at'=>'تاريخ الارسال',
+        'message'=>'الرسالة'
+    ]
 ];

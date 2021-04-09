@@ -42,7 +42,16 @@ class SearchRequest extends FormRequest
                 $Objects = $Objects->whereNotNull($filter['name']);
             }
         }
-        foreach ($crud->getColumns() as $column) if($this->filled($column['name']) && $column['is_searchable']) $Objects = $Objects->where($column['name'],'LIKE','%'.$this->{$column['name']}.'%');
+        foreach ($crud->getColumns() as $column){
+            if($this->filled($column['name']) && $column['is_searchable']) {
+                if (isset($column['CustomSearch'])){
+                    $Objects = $column['CustomSearch']($this->{$column['name']},$Objects);
+                }else{
+                    $Objects = $Objects->where($column['name'], 'LIKE', '%' . $this->{$column['name']} . '%');
+                }
+            }
+
+        }
         if($this->filled('order_by') && $this->filled('order_type')) $Objects = $Objects->orderBy($this->order_by,$this->order_type);
         $Objects = $Objects->paginate(($this->per_page)?$this->per_page:10);
         return view($crud->getViewIndex(),compact('Objects'))->with($crud->getParams());

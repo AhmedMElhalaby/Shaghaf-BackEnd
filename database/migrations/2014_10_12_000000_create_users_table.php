@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('type')->index();
             $table->foreignId('country_id')->nullable();
             $table->foreignId('city_id')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->nullable()->default(asset('default-avatar.png'));
             $table->string('bio')->nullable();
             $table->tinyInteger('gender')->index()->nullable();
             $table->string('iban_number')->unique()->nullable();

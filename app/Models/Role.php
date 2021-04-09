@@ -2,19 +2,21 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property integer id
  * @property string name
- * @property integer type
+ * @property string name_ar
  * @method Role find($id)
  */
 class Role extends Model
 {
     protected $table = 'roles';
-    protected $fillable = ['name','type'];
+    protected $fillable = ['name','name_ar'];
 
-    public function role_permissions(){
+    public function role_permissions(): HasMany
+    {
         return $this->hasMany(RolePermission::class);
     }
 
@@ -22,7 +24,8 @@ class Role extends Model
      * @param $id
      * @return bool
      */
-    public function hasPermission($id){
+    public function hasPermission($id): bool
+    {
         return (RolePermission::where('role_id',$this->getId())->where('permission_id',$id)->first())?true:false;
     }
 
@@ -59,19 +62,19 @@ class Role extends Model
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getType(): int
+    public function getNameAr(): string
     {
-        return $this->type;
+        return $this->name_ar;
     }
 
     /**
-     * @param int $type
+     * @param string $name_ar
      */
-    public function setType(int $type): void
+    public function setNameAr(string $name_ar): void
     {
-        $this->type = $type;
+        $this->name_ar = $name_ar;
     }
 
 }

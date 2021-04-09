@@ -20,7 +20,7 @@
     @endif
 @endsection
 @section('out-content')
-    @if(in_array('change_password',$Links))
+    @if(isset($Links) && in_array('change_password',$Links))
         <div class="modal fade" id="change_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form action="{{url($redirect.'/update/password')}}" method="post">
@@ -70,7 +70,7 @@
             </div>
         </div>
     @endif
-    @if(in_array('finish',$Links))
+    @if(isset($Links) && in_array('finish',$Links))
         <div class="modal fade" id="finish" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <form action="{{url($redirect.'/finish')}}" method="post">
@@ -95,7 +95,7 @@
             </div>
         </div>
     @endif
-    @if(in_array('delete',$Links))
+    @if(isset($Links) && in_array('delete',$Links))
         <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="{{url($redirect.'/destroy')}}" method="post">

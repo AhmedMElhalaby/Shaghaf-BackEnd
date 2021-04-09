@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Admin;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminsTable extends Migration
+class CreateLinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +13,14 @@ class CreateAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->boolean('is_active')->default(true);
-            $table->string('avatar')->nullable()->default(asset('default-avatar.png'));
-            $table->rememberToken();
+            $table->string('name_ar');
+            $table->string('url');
+            $table->string('icon')->nullable();
+            $table->foreignId('permission_id')->nullable();
+            $table->foreignId('parent_id')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('links');
     }
 }

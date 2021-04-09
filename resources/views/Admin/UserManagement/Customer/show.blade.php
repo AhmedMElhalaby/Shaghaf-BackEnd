@@ -74,28 +74,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
                             <div class="card">
-                                <div class="card-header text-center" style="padding: 5px" data-background-color="{{ config('app.color') }}">
-                                    <h4 class="title"> {{__('crud.Portfolio.crud_names')}}</h4>
+                                <div class="card-header" data-background-color="{{ config('app.color') }}">
+                                    <h4 class="title">  {{__('admin.Home.n_send_general')}} </h4>
                                 </div>
-                                <div class="card-content table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th style="border-top: none !important;">{{__('crud.Portfolio.media')}}</th>
-                                            <th style="border-top: none !important;">{{__('crud.Portfolio.description')}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach(\App\Models\Portfolio::where('user_id',$Object->getId())->get() as $Portfolio)
-                                            <tr>
-                                                <td><a href="{{asset($Portfolio->getMedia())}}" download><i class="fa fa-download"></i></a></td>
-                                                <td>{{$Portfolio->getDescription()}}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                <div class="card-content">
+                                    <form action="{{url('notification/send')}}" method="post">
+                                        @csrf
+                                        <input type="hidden" id="user_id" name="user_id" value="{{$Object->getId()}}">
+                                        <div class="row">
+                                            <div class="col-md-4 btn-group required">
+                                                <label for="title">{{__('admin.Home.n_title')}} :</label>
+                                                <input type="text" required="" name="title" id="title" class="form-control" placeholder="{{__('admin.Home.n_enter_title')}}">
+                                            </div>
+                                            <div class="col-md-6 btn-group required">
+                                                <label for="msg">{{__('admin.Home.n_text')}} :</label>
+                                                <input type="text" required="" name="msg" id="msg" class="form-control" placeholder="{{__('admin.Home.n_enter_text')}}">
+                                            </div>
+                                            <div class="col-md-1 " style="margin-top: 50px">
+                                                <button type="submit" id="send" class="btn btn-primary">{{__('admin.Home.n_send')}}</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
