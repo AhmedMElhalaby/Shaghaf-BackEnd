@@ -40,12 +40,6 @@ class SubCategoryController extends Controller
                 'is_searchable'=>true,
                 'order'=>true
             ],
-            'image'=> [
-                'name'=>'image',
-                'type'=>'image',
-                'is_searchable'=>true,
-                'order'=>true
-            ],
             'name'=> [
                 'name'=>'name',
                 'type'=>'text',
@@ -70,7 +64,7 @@ class SubCategoryController extends Controller
                 'name'=>'parent_id',
                 'type'=>'custom_relation',
                 'relation'=>[
-                    'data'=> Category::all(),
+                    'data'=> Category::whereNull('parent_id')->get(),
                     'custom'=>function($Object){
                         return app()->getLocale() == 'ar'?$Object->getNameAr():$Object->getName();
                     },
@@ -86,32 +80,6 @@ class SubCategoryController extends Controller
             'name_ar'=> [
                 'name'=>'name_ar',
                 'type'=>'text',
-                'is_required'=>true
-            ],
-            'description'=> [
-                'name'=>'description',
-                'type'=>'text',
-                'is_required'=>true
-            ],
-            'description_ar'=> [
-                'name'=>'description_ar',
-                'type'=>'text',
-                'is_required'=>true
-            ],
-            'image'=> [
-                'name'=>'image',
-                'type'=>'image',
-                'is_required'=>true,
-                'is_required_update'=>false
-            ],
-            'has_product'=> [
-                'name'=>'has_product',
-                'type'=>'boolean',
-                'is_required'=>true
-            ],
-            'has_service'=> [
-                'name'=>'has_service',
-                'type'=>'boolean',
                 'is_required'=>true
             ],
             'is_active'=> [
