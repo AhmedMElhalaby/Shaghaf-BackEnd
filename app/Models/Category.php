@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property integer id
  * @property string name
  * @property string name_ar
- * @property string description
- * @property string description_ar
- * @property string image
+ * @property mixed description
+ * @property mixed description_ar
+ * @property mixed image
  * @property mixed has_product
  * @property mixed has_service
  * @property integer|null parent_id
@@ -84,49 +84,49 @@ class Category extends Model
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param mixed $description
      */
-    public function setDescription(string $description): void
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getDescriptionAr(): string
+    public function getDescriptionAr()
     {
         return $this->description_ar;
     }
 
     /**
-     * @param string $description_ar
+     * @param mixed $description_ar
      */
-    public function setDescriptionAr(string $description_ar): void
+    public function setDescriptionAr($description_ar): void
     {
         $this->description_ar = $description_ar;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getImage(): string
+    public function getImage()
     {
         return $this->image;
     }
 
     /**
-     * @param string $image
+     * @param mixed $image
      */
-    public function setImage(string $image): void
+    public function setImage($image): void
     {
         $this->image = $image;
     }
