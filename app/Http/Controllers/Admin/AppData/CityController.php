@@ -23,6 +23,9 @@ class CityController extends Controller
                 'type'=>'custom_relation',
                 'relation'=>[
                     'data'=> Country::all(),
+                    'custom_search'=>function($Object){
+                        return ($Object)?app()->getLocale() == 'ar'?$Object->getNameAr():$Object->getName():'-';
+                    },
                     'custom'=>function($Object){
                         return app()->getLocale() == 'ar'?$Object->getNameAr():$Object->getName();
                     },

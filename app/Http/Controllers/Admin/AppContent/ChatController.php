@@ -32,10 +32,10 @@ class ChatController extends Controller
                     'custom_search'=>function($Object){
                         return $Object->getName();
                     },
-                    'entity'=>'id',
+                    'entity'=>'chat_room_users',
                     'custom'=>function($Object){
                         $h = '';
-                        foreach ($Object->chat_room_users as $key=>$chat_room_user) {
+                        foreach ($Object as $key=>$chat_room_user) {
                             $h .= (($key != 0)?' - ':'').$chat_room_user->user->getName();
                         }
                         return $h;
