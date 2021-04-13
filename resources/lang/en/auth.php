@@ -36,6 +36,7 @@ return [
     'privacy'=>'Privacy policy',
     'privacy_click'=>'By clicking register you approve on ',
     'mobile_verified_before'=>'Email Verified Before',
+    'mobile_not_verified'=>'Mobile is not verified',
     'verified_before'=>'Email Verified Before',
     'verified'=>'Verified Successfully',
     'verification_code_sent'=>'Verification code has been sent .',

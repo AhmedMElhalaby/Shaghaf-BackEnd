@@ -34,6 +34,10 @@ class StoreRequest extends ApiRequest
 
     public function run(): JsonResponse
     {
+        $logged = auth()->user();
+        if ($logged->getMobileVerifiedAt() == null){
+            return $this->failJsonResponse([__('auth.mobile_not_verified')]);
+        }
         $delivered_datetime = Carbon::parse($this->delivered_date .' '.$this->delivered_time);
         if (!$delivered_datetime->gt(Carbon::now()->addHour())){
             return $this->failJsonResponse([__('messages.deliver_date_should_be_at_least_hour_from_now')]);

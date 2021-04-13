@@ -37,6 +37,7 @@ return [
     'privacy'=>'سياسة الخصوصية',
     'privacy_click'=>'بالضغط على التالي انت توافق على',
     'mobile_verified_before'=>'الجوال مفعل مسبقا',
+    'mobile_not_verified'=>'الجوال غير مفعل',
     'verified_before'=>'الايميل مفعل مسبقا',
     'verified'=>'تم التفعيل بنجاح',
     'verification_code_sent'=>'تم ارسال كود التحقق .',

@@ -37,6 +37,9 @@ class StoreRequest extends ApiRequest
     public function run(): JsonResponse
     {
         $logged = auth()->user();
+        if ($logged->getMobileVerifiedAt() == null){
+            return $this->failJsonResponse([__('auth.mobile_not_verified')]);
+        }
         $Product =new  Product();
         $Product->setUserId($logged->getId());
         $Product->setName($this->name);
