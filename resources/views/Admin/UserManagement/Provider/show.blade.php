@@ -40,6 +40,28 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.iban_number')}}</th>
+                                            <td style="border-top: none !important;">{{$Object->getIbanNumber()}}</td>
+                                        </tr>
+                                        @if($Object->getIdentityImage())
+                                        <tr>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.identity_image')}}</th>
+                                            <td style="border-top: none !important;"><a href="{{$Object->getIdentityImage()}}" download></a></td>
+                                        </tr>
+                                        @endif
+                                        @if($Object->getMaroofCert())
+                                        <tr>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.maroof_cert')}}</th>
+                                            <td style="border-top: none !important;"><a href="{{$Object->getMaroofCert()}}" download></a></td>
+                                        </tr>
+                                        @endif
+                                        @if($Object->getCommercialCert())
+                                        <tr>
+                                            <th style="border-top: none !important;">{{__('crud.'.$lang.'.commercial_cert')}}</th>
+                                            <td style="border-top: none !important;"><a href="{{$Object->getCommercialCert()}}" download></a></td>
+                                        </tr>
+                                        @endif
+                                        <tr>
                                             <th style="border-top: none !important;">{{__('crud.'.$lang.'.orders_count')}}</th>
                                             <td style="border-top: none !important;"><a href="{{url('app_content/orders?freelancer_id='.$Object->getId())}}">{{\App\Models\Order::where('freelancer_id',$Object->getId())->count()}}</a></td>
                                         </tr>

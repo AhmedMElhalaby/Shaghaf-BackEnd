@@ -36,7 +36,7 @@ class RegistrationRequest extends ApiRequest
             'country_id' => 'required|exists:countries,id',
             'city_id' => 'required|exists:cities,id',
             'password' => 'required|string|min:6',
-            'mobile' => 'required|numeric|unique:users',
+            'mobile' => 'required|numeric|unique:users|min:12|max:12',
             'email' => 'required|email|unique:users',
             'type'=>'required|in:'.Constant::USER_TYPE_RULES,
             'device_token' => 'string|required_with:device_type',
