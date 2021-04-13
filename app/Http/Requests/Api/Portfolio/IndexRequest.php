@@ -26,7 +26,11 @@ class IndexRequest extends ApiRequest
         if($this->filled('user_id')){
             $Objects = $Objects->where('user_id',$this->user_id);
         }else{
-            $Objects = $Objects->where('user_id',auth()->user()->getId());
+            if (auth()->check()){
+                $Objects = $Objects->where('user_id',auth()->user()->getId());
+            }else{
+                return $this->failJsonResponse([__('auth.unauthenticated')],401);
+            }
         }
         $Objects = $Objects->paginate($this->filled('per_page')?$this->per_page:10);
         return $this->successJsonResponse([],PortfolioResource::collection($Objects->items()),'Portfolios',$Objects);

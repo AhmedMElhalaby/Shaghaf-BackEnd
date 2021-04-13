@@ -73,15 +73,6 @@ Route::group([
         Route::post('update', 'OrderController@update');
         Route::post('review', 'OrderController@review');
     });
-    Route::group([
-        'prefix' => 'portfolios',
-    ], function (){
-        Route::get('/','PortfolioController@index');
-        Route::get('show','PortfolioController@show');
-        Route::post('store','PortfolioController@store');
-        Route::post('update', 'PortfolioController@update');
-        Route::post('destroy', 'PortfolioController@destroy');
-    });
 });
 
 Route::group([
@@ -123,3 +114,16 @@ Route::group([
     });
 });
 
+Route::group([
+    'prefix' => 'portfolios',
+], function() {
+    Route::get('/','PortfolioController@index');
+    Route::get('show','PortfolioController@show');
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+        Route::post('store','PortfolioController@store');
+        Route::post('update', 'PortfolioController@update');
+        Route::post('destroy', 'PortfolioController@destroy');
+    });
+});
