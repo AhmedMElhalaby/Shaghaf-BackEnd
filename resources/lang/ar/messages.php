@@ -40,6 +40,7 @@ return [
     'dont_have_credit'=>'لا تملك رصيد كافي !',
     'credit_less_than_last_bid'=>'المبلغ اقل من اخر مزايدة',
     'bid_less_than_required'=>'بلغ المزايد اقل من المطلوب !',
+    'deliver_date_should_be_at_least_hour_from_now'=>'وقت التوصيل يجب ان يكون على الاقل ساعة من الان',
     'you_cannot_do_it_at_this_time'=>'لا يمكنك القيام بهذا الإجراء في الوقت الحالي !',
     'payment_verified'=>'تم التأكد من الدفع !',
     'payment_not_verified'=>'لم يتم الدفع !',

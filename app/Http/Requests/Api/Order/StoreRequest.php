@@ -9,6 +9,7 @@ use App\Http\Resources\Api\Order\OrderResource;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -33,6 +34,10 @@ class StoreRequest extends ApiRequest
 
     public function run(): JsonResponse
     {
+        $delivered_datetime = Carbon::parse($this->delivered_date .' '.$this->delivered_time);
+        if (!$delivered_datetime->gt(Carbon::now()->addHour())){
+            return $this->failJsonResponse([__('messages.deliver_date_should_be_at_least_hour_from_now')]);
+        }
         $Product = (new Product())->find($this->product_id);
         $Object = new Order();
         $Object->setUserId(auth()->user()->getId());
