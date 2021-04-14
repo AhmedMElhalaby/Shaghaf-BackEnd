@@ -1,12 +1,12 @@
 :root {
-    --main-bg-color: rgb(230, 184, 32);
-    --main-bg-color-a: rgba(230, 184, 32, 0.8);
-    --main-bg-color-a1: rgba(230, 184, 32, 0.28);
-    --main-bg-color-a2: rgba(230, 184, 32, 0.2);
+    --main-bg-color: rgb(247, 202, 11);
+    --main-bg-color-a: rgba(247, 202, 11, 0.8);
+    --main-bg-color-a1: rgba(247, 202, 11, 0.28);
+    --main-bg-color-a2: rgba(247, 202, 11, 0.2);
     --main-bg-color-dark: rgba(0, 0, 0, 0.12);
     --main-bg-color-light: #fff;
-    --main-bg-image: #E6B820;
-    --main-bg-image2: #E6B820;
+    --main-bg-image: #f7ca0b;
+    --main-bg-image2: #f7ca0b;
     --main-bg-image-dark: #D2D2D2;
     --main-bg-image-dark2: #D2D2D2;
 }

@@ -171,7 +171,7 @@
                                         @foreach(\App\Models\Product::where('user_id',$Object->getId())->get() as $Product)
                                             <tr>
                                                 <td>{{$Product->getName()}}</td>
-                                                <td>@if(app()->getLocale() =='en') {{$Product->category->getName()}}/{{$Product->sub_category->getName()}} @else {{$Product->category->getNameAr()}}/{{$Product->sub_category->getNameAr()}} @endif</td>
+                                                <td>@if($Product->category) @if(app()->getLocale() =='en') {{$Product->category->getName()}}/{{$Product->sub_category->getName()}} @else {{$Product->category->getNameAr()}}/{{$Product->sub_category->getNameAr()}} @endif @else - @endif</td>
                                                 <td>{{$Product->getPrice()}}</td>
                                             </tr>
                                         @endforeach
