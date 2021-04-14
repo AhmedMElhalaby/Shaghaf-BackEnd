@@ -44,7 +44,9 @@ class ResponseRequest extends FormRequest
         $Response->setResponse($this->ticket_response);
         $Response->setSenderType(Constant::SENDER_TYPE['Admin']);
         $Response->save();
-        Functions::SendNotification($Object->user,'Ticket Respond',' Your ticket has been respond !','الرد على التذكرة','لقد تم الرد على تذكرتك ! ',$Object->getId(),Constant::NOTIFICATION_TYPE['Ticket'],true);
+        if($Object->user) {
+            Functions::SendNotification($Object->user, 'Ticket Respond', ' Your ticket has been respond !', 'الرد على التذكرة', 'لقد تم الرد على تذكرتك ! ', $Object->getId(), Constant::NOTIFICATION_TYPE['Ticket'], true);
+        }
         return redirect()->back()->with('status', __('admin.messages.saved_successfully'));
     }
 }
