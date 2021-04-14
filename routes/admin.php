@@ -206,6 +206,20 @@ Route::group([
             Route::get('/option/export','OrderController@export');
         });
         Route::group([
+            'prefix'=>'products'
+        ],function () {
+            Route::get('/','ProductController@index');
+            Route::get('/option/export','ProductController@export');
+            Route::delete('/{product}','ProductController@destroy');
+        });
+        Route::group([
+            'prefix'=>'portfolios'
+        ],function () {
+            Route::get('/','PortfolioController@index');
+            Route::get('/option/export','PortfolioController@export');
+            Route::delete('/{portfolio}','PortfolioController@destroy');
+        });
+        Route::group([
             'prefix'=>'chats'
         ],function () {
             Route::get('/','ChatController@index');

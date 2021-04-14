@@ -1,4 +1,29 @@
 @extends('AhmedPanel.crud.main')
+@section('out-content')
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="{{url($redirect.'/destroy')}}" id="delete_form" method="post">
+                <input name="_method" type="hidden" value="DELETE">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="exampleModalLabel">{{__('admin.delete')}} :  <span id="del_name"></span></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="id" >
+                        <p>{{__('admin.sure_to_delete')}}  !! </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{__('admin.cancel')}}</button>
+                        <button type="submit" class="btn btn-danger">{{__('admin.delete')}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -139,6 +164,7 @@
                                         <tr>
                                             <th style="border-top: none !important;">{{__('crud.Portfolio.media')}}</th>
                                             <th style="border-top: none !important;">{{__('crud.Portfolio.description')}}</th>
+                                            <th style="border-top: none !important;">{{__('admin.delete')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -146,6 +172,9 @@
                                             <tr>
                                                 <td><span><img src="{{asset($Portfolio->getMedia())}}" class="thumbnail" alt="" style="width: 50px;height: 50px"></span></td>
                                                 <td>{{$Portfolio->getDescription()}}</td>
+                                                <td>
+                                                    <a href="#" class="fs-20" data-toggle="modal" data-target="#delete" onclick="document.getElementById('del_name').innerHTML = '{{@$Portfolio->getDescription()}}';document.getElementById('id').value = '{{@$Portfolio->getId()}}';document.getElementById('delete_form').action = '{{url('app_content/portfolios/'.$Portfolio->getId())}}'"><i class="fa fa-trash" data-toggle="tooltip" data-placement="bottom" title="{{__('admin.delete')}}"></i></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -165,6 +194,7 @@
                                             <th style="border-top: none !important;">{{__('crud.Product.name')}}</th>
                                             <th style="border-top: none !important;">{{__('crud.Product.category_id')}}</th>
                                             <th style="border-top: none !important;">{{__('crud.Product.price')}}</th>
+                                            <th style="border-top: none !important;">{{__('admin.delete')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -173,6 +203,9 @@
                                                 <td>{{$Product->getName()}}</td>
                                                 <td>@if($Product->category) @if(app()->getLocale() =='en') {{$Product->category->getName()}}/{{$Product->sub_category->getName()}} @else {{$Product->category->getNameAr()}}/{{$Product->sub_category->getNameAr()}} @endif @else - @endif</td>
                                                 <td>{{$Product->getPrice()}}</td>
+                                                <td>
+                                                    <a href="#" class="fs-20" data-toggle="modal" data-target="#delete" onclick="document.getElementById('del_name').innerHTML = '{{@$Product->getName()}}';document.getElementById('id').value = '{{@$Product->getId()}}';document.getElementById('delete_form').action = '{{url('app_content/products/'.$Product->getId())}}'"><i class="fa fa-trash" data-toggle="tooltip" data-placement="bottom" title="{{__('admin.delete')}}"></i></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

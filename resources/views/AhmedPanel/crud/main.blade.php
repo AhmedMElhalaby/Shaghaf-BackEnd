@@ -98,7 +98,7 @@
     @if(isset($Links) && in_array('delete',$Links))
         <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="{{url($redirect.'/destroy')}}" method="post">
+            <form action="{{url($redirect.'/destroy')}}" id="delete_form" method="post">
                 <input name="_method" type="hidden" value="DELETE">
                 @csrf
                 <div class="modal-content">
