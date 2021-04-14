@@ -196,7 +196,8 @@ class Functions
                     break;
                 }
             }
-        }else{
+        }
+        else{
             $code_email = rand( 1000 , 9999 );
             $code_mobile = rand( 1000 , 9999 );
             $token = Str::random(40).time();

@@ -41,8 +41,13 @@ class HomeController extends Controller
         if ($request->has('user_id')){
             $Users = $Users->where('id',$request->user_id);
         }
-        $Users = $Users->whereNotNull('device_token')->get();
-        Functions::sendNotifications($Users,$Title,$Message,null,Constant::NOTIFICATION_TYPE['General']);
+        if ($request->has('user_id')){
+            $Users = $Users->whereNotNull('device_token')->first();
+            Functions::sendNotification($Users,$Title,$Message,$Title,$Message,null,Constant::NOTIFICATION_TYPE['General']);
+        }else{
+            $Users = $Users->whereNotNull('device_token')->get();
+            Functions::sendNotifications($Users,$Title,$Message,null,Constant::NOTIFICATION_TYPE['General']);
+        }
         return redirect()->back()->with('status', __('admin.messages.notification_sent'));
     }
     public function delete_media(DeleteMediaRequest $request): RedirectResponse
