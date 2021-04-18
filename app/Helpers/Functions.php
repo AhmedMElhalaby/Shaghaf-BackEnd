@@ -146,7 +146,7 @@ class Functions
         $ch = curl_init();
         $user = 'FHOTAIBI';
         $password = 'FHotaibi@5588';
-        $sender = 'passion';
+        $sender = 'Passion';
         $text = urlencode($msg);
         $encoding = 'UTF8';
         // auth call
