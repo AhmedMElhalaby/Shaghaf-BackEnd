@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\AppData;
 
+use App\Helpers\Constant;
 use App\Http\Controllers\Admin\Controller;
 use App\Models\Category;
 use App\Models\Country;
@@ -70,6 +71,16 @@ class CategoryController extends Controller
                 'type'=>'text',
                 'is_required'=>true
             ],
+            'user_type'=> [
+                'name'=>'user_type',
+                'type'=>'select',
+                'data'=>[
+                    Constant::CATEGORY_USER_TYPE['All'] =>__('crud.Category.UserTypes.'.Constant::CATEGORY_USER_TYPE['All'],[],session('my_locale')),
+                    Constant::CATEGORY_USER_TYPE['Customer'] =>__('crud.Category.UserTypes.'.Constant::CATEGORY_USER_TYPE['Customer'],[],session('my_locale')),
+                    Constant::CATEGORY_USER_TYPE['Freelancer'] =>__('crud.Category.UserTypes.'.Constant::CATEGORY_USER_TYPE['Freelancer'],[],session('my_locale')),
+                ],
+                'is_required'=>true
+            ],
             'image'=> [
                 'name'=>'image',
                 'type'=>'image',
@@ -83,6 +94,11 @@ class CategoryController extends Controller
             ],
             'has_service'=> [
                 'name'=>'has_service',
+                'type'=>'boolean',
+                'is_required'=>true
+            ],
+            'home_service'=> [
+                'name'=>'home_service',
                 'type'=>'boolean',
                 'is_required'=>true
             ],

@@ -36,6 +36,7 @@ class InstallRequest extends ApiRequest
             'OrderStatuses'=>Constant::ORDER_STATUSES,
             'ChatMessageType'=>Constant::CHAT_MESSAGE_TYPE,
             'ProviderType'=>Constant::PROVIDER_TYPE,
+            'CategoryUserType'=>Constant::CATEGORY_USER_TYPE,
         ];
         return $this->successJsonResponse([],$data);
     }

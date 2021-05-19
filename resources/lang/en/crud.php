@@ -157,6 +157,13 @@ return [
         'has_product' => 'Has Product',
         'has_service' => 'Has Service',
         'is_active' => 'Status',
+        'user_type'=>'User Type Allowed',
+        'home_service'=>'Home Service Availability',
+        'UserTypes'=>[
+            ''.Constant::CATEGORY_USER_TYPE['All']=>'All',
+            ''.Constant::CATEGORY_USER_TYPE['Customer']=>'Customer',
+            ''.Constant::CATEGORY_USER_TYPE['Freelancer']=>'Provider',
+        ]
     ],
     'Country'=>[
         'crud_names' => 'Countries',
@@ -244,5 +251,22 @@ return [
         'id' => '#',
         'created_at'=>'Created Date',
         'message'=>'Message'
+    ],
+    'Discount'=>[
+        'crud_names' => 'Discounts',
+        'crud_name' => 'Discount',
+        'crud_the_name' => 'The Discount',
+        'id' => '#',
+        'code'=>'Discount Code',
+        'use_times'=>'Use Times',
+        'expire_date'=>'Expire Date',
+        'value'=>'Value',
+        'limit'=>'Limit',
+        'is_active'=>'Status',
+        'Errors'=>[
+            'disabled'=>'This code is disabled !',
+            'max_usage'=>'You can`t use this code anymore !',
+            'expiration'=>'This code is expired !',
+        ],
     ]
 ];

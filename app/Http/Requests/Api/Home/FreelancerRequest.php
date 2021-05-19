@@ -24,7 +24,7 @@ class FreelancerRequest extends ApiRequest
     {
         return [
             'category_id' => 'exists:categories,id',
-            'sub_category_id' => 'exists:categories,id'
+            'sub_category_id' => 'exists:categories,id',
         ];
     }
     public function run(): JsonResponse
@@ -47,7 +47,11 @@ class FreelancerRequest extends ApiRequest
         if($this->filled('city_id')){
             $Objects = $Objects->where('city_id', $this->city_id);
         }
-        $Objects = $Objects->orderBy('rate', 'desc');
+        if($this->filled('nearest') && auth()->check()){
+            $Objects = $Objects->nearest(auth()->user()->getLat(),auth()->user()->getLng());
+        }else{
+            $Objects = $Objects->orderBy('rate', 'desc');
+        }
         if($this->filled('top_orders') && $this->top_orders){
             $Objects = $Objects->orderBy('order_count', 'desc');
         }

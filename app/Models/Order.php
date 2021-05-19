@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed note
  * @property mixed price
  * @property mixed total
+ * @property mixed discount_id
+ * @property mixed discount_amount
+ * @property mixed home_service
  * @property mixed delivered_date
  * @property mixed delivered_time
  * @property mixed reject_reason
@@ -26,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     protected $table = 'orders';
-    protected $fillable = ['user_id','freelancer_id','product_id','status','quantity','price','total','note','delivered_date','delivered_time','reject_reason','cancel_reason'];
+    protected $fillable = ['user_id','freelancer_id','product_id','status','quantity','price','total','discount_id','discount_amount','home_service','note','delivered_date','delivered_time','reject_reason','cancel_reason'];
 
     public function user(): BelongsTo
     {
@@ -39,6 +42,10 @@ class Order extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class,'product_id');
+    }
+    public function discount(): BelongsTo
+    {
+        return $this->belongsTo(Discount::class);
     }
     public function order_statuses(): HasMany
     {
@@ -264,6 +271,52 @@ class Order extends Model
         $this->delivered_time = $delivered_time;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDiscountId()
+    {
+        return $this->discount_id;
+    }
 
+    /**
+     * @param mixed $discount_id
+     */
+    public function setDiscountId($discount_id): void
+    {
+        $this->discount_id = $discount_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscountAmount()
+    {
+        return $this->discount_amount;
+    }
+
+    /**
+     * @param mixed $discount_amount
+     */
+    public function setDiscountAmount($discount_amount): void
+    {
+        $this->discount_amount = $discount_amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeService()
+    {
+        return $this->home_service;
+    }
+
+    /**
+     * @param mixed $home_service
+     */
+    public function setHomeService($home_service): void
+    {
+        $this->home_service = $home_service;
+    }
 
 }

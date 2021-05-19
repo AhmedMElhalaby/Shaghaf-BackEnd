@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 
@@ -60,6 +61,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(Portfolio::class);
     }
+
+    /**
+     * @param $query
+     * @param $lat
+     * @param $lng
+     * @return mixed
+     */
+    public function scopeNearest($query, $lat, $lng)
+    {
+        $lat = (float) $lat;
+        $lng = (float) $lng;
+        return $query->select(DB::raw("*,
+                            (6378.10 * ACOS(COS(RADIANS($lat))
+                                * COS(RADIANS(lat))
+                                * COS(RADIANS($lng) - RADIANS(lng))
+                                + SIN(RADIANS($lat))
+                                * SIN(RADIANS(lat)))) AS distance"))
+            ->orderBy('distance', 'asc');
+    }
+
     /**
      * @return int
      */

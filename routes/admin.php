@@ -199,6 +199,18 @@ Route::group([
             Route::get('/option/export','AdvertisementController@export');
         });
         Route::group([
+            'prefix'=>'discounts'
+        ],function () {
+            Route::get('/','DiscountController@index');
+            Route::get('/create','DiscountController@create');
+            Route::post('/','DiscountController@store');
+            Route::get('/{discount}','DiscountController@show');
+            Route::get('/{discount}/edit','DiscountController@edit');
+            Route::put('/{discount}','DiscountController@update');
+            Route::delete('/{discount}','DiscountController@destroy');
+            Route::get('/option/export','DiscountController@export');
+        });
+        Route::group([
             'prefix'=>'orders'
         ],function () {
             Route::get('/','OrderController@index');

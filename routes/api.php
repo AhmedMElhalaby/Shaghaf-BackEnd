@@ -99,6 +99,11 @@ Route::group([
     Route::get('get_freelancers','HomeController@get_freelancers');
     Route::get('get_freelancer','HomeController@get_freelancer');
     Route::get('get_reviews','HomeController@get_reviews');
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+        Route::get('check_discount_code','HomeController@check_discount_code');
+    });
 });
 
 Route::group([

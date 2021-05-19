@@ -44,6 +44,16 @@ class Constant
         'Notification'=>2,
         'Values'=>3,
     ];
+    const DISCOUNT_PAYMENT = [
+        'Pending'=>0,
+        'Done'=>1,
+        'Cancel'=>2,
+    ];
+    const CATEGORY_USER_TYPE = [
+        'All'=>0,
+        'Customer'=>1,
+        'Freelancer'=>2,
+    ];
     const USER_TYPE=[
         'Customer'=>1,
         'Freelancer'=>2

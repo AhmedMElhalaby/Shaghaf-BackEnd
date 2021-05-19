@@ -8,6 +8,7 @@ use App\Events\CreateMessageEvent;
 use App\Events\SendGlobalNotificationEvent;
 use App\Events\SendNotificationEvent;
 use App\Http\Resources\Api\General\NotificationResource;
+use App\Models\DiscountHistory;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -17,6 +18,8 @@ use App\Models\VerifyAccounts;
 use App\Notifications\PasswordReset as PasswordResetNotification;
 use App\Notifications\VerifyAccount;
 use App\Traits\ResponseTrait;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
@@ -490,5 +493,29 @@ class Functions
             ];
         }
 
+    }
+
+    public static function CheckDiscountCode($Discount): array
+    {
+        $DiscountHistoryCount = (new DiscountHistory())->where('discount_id',$Discount->getId())->where('user_id',auth('api')->user()->getId())->whereIn('payment',[Constant::DISCOUNT_PAYMENT['Pending'],Constant::DISCOUNT_PAYMENT['Done']])->count();
+        if (!$Discount->getIsActive()) {
+            return [
+                'status'=>false,
+                'msg'=>__('crud.Discount.Errors.disabled')
+            ];
+        }
+        if ($DiscountHistoryCount == $Discount->getUseTimes()) {
+            return [
+                'status'=>false,
+                'msg'=>__('crud.Discount.Errors.max_usage')
+            ];
+        }
+        if (Carbon::parse($Discount->getExpireDate())->lte(Carbon::today())){
+            return [
+                'status'=>false,
+                'msg'=>__('crud.Discount.Errors.expiration')
+            ];
+        }
+        return ['status'=>true];
     }
 }

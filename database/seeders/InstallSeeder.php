@@ -113,6 +113,12 @@ class InstallSeeder extends Seeder
                         'key'=>'advertisements',
                         'icon'=>'font_download'
                     ],
+                    'Discounts'=>[
+                        'name'=>'Discounts',
+                        'name_ar'=>'أكواد الخصم',
+                        'key'=>'discounts',
+                        'icon'=>'local_offer'
+                    ],
                     'Orders'=>[
                         'name'=>'Orders',
                         'name_ar'=>'الطلبات',

@@ -235,6 +235,9 @@ trait AhmedPanelTrait
             case 'datetime':
                 return view('AhmedPanel.base.columns.datetime',compact('column','object'));
                 break;
+            case 'date':
+                return view('AhmedPanel.base.columns.date',compact('column','object'));
+                break;
             case 'relation':
                 return view('AhmedPanel.base.columns.relation',compact('column','object'));
                 break;
@@ -362,6 +365,12 @@ trait AhmedPanelTrait
         switch ($Field['type']){
             case 'boolean':
                 return view('AhmedPanel.base.fields.boolean',compact('Field','value','lang'));
+                break;
+            case 'number':
+                return view('AhmedPanel.base.fields.number',compact('Field','value','lang'));
+                break;
+            case 'date':
+                return view('AhmedPanel.base.fields.date',compact('Field','value','lang'));
                 break;
             case 'url':
                 return view('AhmedPanel.base.fields.url',compact('Field','value','lang'));

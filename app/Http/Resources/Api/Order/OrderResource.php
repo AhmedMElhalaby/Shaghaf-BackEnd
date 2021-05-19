@@ -22,17 +22,20 @@ class OrderResource extends JsonResource
         $Objects['Freelancer'] = new FreelancerResource($this->freelancer);
         $Objects['quantity'] = $this->getQuantity();
         $Objects['price'] = $this->getPrice();
-        $Objects['total'] = $this->getTotal();
+        $Objects['amount'] = $this->getTotal();
+        $Objects['discount_amount'] = $this->getDiscountAmount();
+        $Objects['total'] = $this->getTotal() -$this->getDiscountAmount();
         $UserBalance = Functions::UserBalance($this->getUserId());
-        if ($UserBalance >= $this->getTotal()) {
+        if ($UserBalance >= $Objects['total']) {
             $balance = 0;
         }else{
-            $balance = $this->getTotal() - $UserBalance;
+            $balance = $Objects['total'] - $UserBalance;
         }
         $Objects['balance'] = $balance;
         $Objects['order_date'] = Carbon::parse($this->created_at);
         $Objects['delivered_date'] = $this->getDeliveredDate();
         $Objects['delivered_time'] = $this->getDeliveredTime();
+        $Objects['home_service'] = $this->getHomeService();
         $Objects['reject_reason'] = $this->getRejectReason();
         $Objects['cancel_reason'] = $this->getCancelReason();
         $Objects['rate'] = $this->reviews()->avg('rate')??'0';

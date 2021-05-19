@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Home\AdvertisementRequest;
 use App\Http\Requests\Api\Home\CategoryRequest;
+use App\Http\Requests\Api\Home\CheckDiscountCodeRequest;
 use App\Http\Requests\Api\Home\FaqRequest;
 use App\Http\Requests\Api\Home\FreelancerRequest;
 use App\Http\Requests\Api\Home\ShowFreelancerRequest;
@@ -41,6 +42,10 @@ class HomeController extends Controller
         return $request->run();
     }
     public function categories(CategoryRequest $request): JsonResponse
+    {
+        return $request->run();
+    }
+    public function check_discount_code(CheckDiscountCodeRequest $request): JsonResponse
     {
         return $request->run();
     }

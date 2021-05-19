@@ -158,6 +158,13 @@ return [
         'has_product' => 'يسمح بمنتج',
         'has_service' => 'يسمح بخدمة',
         'is_active' => 'الحالة',
+        'user_type'=>'نوع المستخدم المسموح',
+        'home_service'=>'توفر الخدمة المنزلية',
+        'UserTypes'=>[
+            ''.Constant::CATEGORY_USER_TYPE['All']=>'الكل',
+            ''.Constant::CATEGORY_USER_TYPE['Customer']=>'الزبائن',
+            ''.Constant::CATEGORY_USER_TYPE['Freelancer']=>'مزودي الخدمة',
+        ]
     ],
     'Country'=>[
         'crud_names' => 'الدول',
@@ -246,5 +253,22 @@ return [
         'id' => '#',
         'created_at'=>'تاريخ الارسال',
         'message'=>'الرسالة'
+    ],
+    'Discount'=>[
+        'crud_names' => 'أكواد الخصم',
+        'crud_name' => 'كود الخصم',
+        'crud_the_name' => 'الكود',
+        'id' => '#',
+        'code'=>'كود الخصم',
+        'use_times'=>'عدد مرات الاستخدام',
+        'expire_date'=>'تاريخ الصلاحية',
+        'value'=>'قيمة الخصم',
+        'limit'=>'حد الخصم',
+        'is_active'=>'الحالة',
+        'Errors'=>[
+            'disabled'=>'كود الخصم معطل !',
+            'max_usage'=>'لا يمكنك استخدام كود الخصم مرة أخرى !',
+            'expiration'=>'كود الخصم منتهي الصلاحية !',
+        ],
     ]
 ];

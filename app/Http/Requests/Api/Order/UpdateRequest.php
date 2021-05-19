@@ -5,10 +5,12 @@ namespace App\Http\Requests\Api\Order;
 use App\Helpers\Functions;
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\Order\OrderResource;
+use App\Models\DiscountHistory;
 use App\Models\Order;
 use App\Helpers\Constant;
 use App\Models\Setting;
 use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -46,14 +48,19 @@ class UpdateRequest extends ApiRequest
                     return $this->failJsonResponse([__('messages.wrong_sequence')]);
                 }
                 $Balance = Functions::UserBalance($Object->getUserId());
-                if ($Balance >= $Object->getTotal()) {
+                if ($Balance >= ($Object->getTotal() - $Object->getDiscountAmount())) {
                     $Transaction = new Transaction();
                     $Transaction->setUserId($Object->getUserId());
                     $Transaction->setRefId($Object->getId());
                     $Transaction->setType(Constant::TRANSACTION_TYPES['Holding']);
-                    $Transaction->setValue($Object->getTotal());
+                    $Transaction->setValue(($Object->getTotal() - $Object->getDiscountAmount()));
                     $Transaction->setStatus(Constant::TRANSACTION_STATUS['Paid']);
                     $Transaction->save();
+                    if ($Object->getDiscountId() != null){
+                        $DiscountHistory = (new DiscountHistory())->where('discount_id',$Object->getDiscountId())->where('order_id',$Object->getId())->first();
+                        $DiscountHistory->setPayment(Constant::DISCOUNT_PAYMENT['Done']);
+                        $DiscountHistory->save();
+                    }
                 }else{
                     return $this->failJsonResponse([__('messages.dont_have_credit')],[
                         'request_amount'=>($Object->getTotal()-$Balance)
@@ -82,6 +89,11 @@ class UpdateRequest extends ApiRequest
                 $Object->setStatus(Constant::ORDER_STATUSES['Rejected']);
                 $Object->setRejectReason(@$this->reject_reason);
                 $Object->save();
+                if ($Object->getDiscountId() != null){
+                    $DiscountHistory = (new DiscountHistory())->where('discount_id',$Object->getDiscountId())->where('order_id',$Object->getId())->first();
+                    $DiscountHistory->setPayment(Constant::DISCOUNT_PAYMENT['Cancel']);
+                    $DiscountHistory->save();
+                }
                 Functions::ChangeOrderStatus($Object->getId(),Constant::ORDER_STATUSES['Rejected']);
                 Functions::SendNotification($Object->user,'Order Rejected','Provider Rejected your order !','الرفض على الطلب !','قام المزود برفض طلبك',$Object->getId(),Constant::NOTIFICATION_TYPE['Order']);
                 break;
@@ -93,6 +105,11 @@ class UpdateRequest extends ApiRequest
                 $Object->setStatus(Constant::ORDER_STATUSES['Canceled']);
                 $Object->setCancelReason(@$this->cancel_reason);
                 $Object->save();
+                if ($Object->getDiscountId() != null){
+                    $DiscountHistory = (new DiscountHistory())->where('discount_id',$Object->getDiscountId())->where('order_id',$Object->getId())->first();
+                    $DiscountHistory->setPayment(Constant::DISCOUNT_PAYMENT['Cancel']);
+                    $DiscountHistory->save();
+                }
                 Functions::ChangeOrderStatus($Object->getId(),Constant::ORDER_STATUSES['Canceled']);
                 Functions::SendNotification($Object->freelancer,'Order Canceled','Customer Canceled the order !','إلغاء الطلب !','قام المستخدم بإلغاء الطلب',$Object->getId(),Constant::NOTIFICATION_TYPE['Order']);
                 break;

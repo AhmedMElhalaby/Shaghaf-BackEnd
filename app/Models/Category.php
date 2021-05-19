@@ -15,13 +15,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed image
  * @property mixed has_product
  * @property mixed has_service
+ * @property mixed home_service
+ * @property mixed user_type
  * @property integer|null parent_id
  * @property boolean is_active
+ * @method Category find(mixed $category_id)
  */
 class Category extends Model
 {
     protected $table = 'categories';
-    protected $fillable = ['name','name_ar','description','description_ar','image','parent_id','has_product','has_service','is_active'];
+    protected $fillable = ['name','name_ar','description','description_ar','image','parent_id','has_product','has_service','home_service','user_type','is_active'];
 
     public function parent(): BelongsTo
     {
@@ -32,7 +35,8 @@ class Category extends Model
         return $this->hasMany(Category::class,'parent_id');
     }
 
-    public function product(){
+    public function product(): HasMany
+    {
         return $this->hasMany(Product::class);
     }
     /**
@@ -177,6 +181,38 @@ class Category extends Model
     public function setHasService($has_service): void
     {
         $this->has_service = $has_service;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeService()
+    {
+        return $this->home_service;
+    }
+
+    /**
+     * @param mixed $home_service
+     */
+    public function setHomeService($home_service): void
+    {
+        $this->home_service = $home_service;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserType()
+    {
+        return $this->user_type;
+    }
+
+    /**
+     * @param mixed $user_type
+     */
+    public function setUserType($user_type): void
+    {
+        $this->user_type = $user_type;
     }
 
     /**
