@@ -147,30 +147,22 @@ class Functions
     }
     public static function SendSms($msg,$to){
         $ch = curl_init();
-
         curl_setopt($ch, CURLOPT_URL, "https://www.msegat.com/gw/sendsms.php");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, TRUE);
-
         curl_setopt($ch, CURLOPT_POST, TRUE);
-
-        $fields = <<<EOT
-            {
-              "userName": "Passion",
-              "numbers": "".$to,
-              "userSender": "Passion",
-              "apiKey": "3695f1bdf6f10a611ffc8a8badc854e2",
-              "msg": "".$msg,
-              "msgEncoding":"UTF8"
-            }
-        EOT;
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "{
+          \"userName\": \"Passion\",
+          \"numbers\": \"${to}\",
+          \"userSender\": \"Passion\",
+          \"apiKey\": \"3695f1bdf6f10a611ffc8a8badc854e2\",
+          \"msg\": \"${msg}\",
+          \"msgEncoding\": \"UTF8\"
+        }");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Content-Type: application/json"
         ));
         $response = curl_exec($ch);
-        $info = curl_getinfo($ch);
         curl_close($ch);
     }
     public static function SendVerification($user,$type = null): JsonResponse
