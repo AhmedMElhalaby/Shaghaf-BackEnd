@@ -14,6 +14,7 @@ class TicketResource extends JsonResource
         $Objects['message'] = $this->getMessage();
         $Objects['attachment'] = $this->getAttachment();
         $Objects['status'] = $this->getStatus();
+        $Objects['status_str'] = __('crud.Ticket.Statuses.'.$this->getStatus());
         $Objects['TicketResponses'] = TicketResponseResource::collection($this->ticket_responses);
         return $Objects;
     }
