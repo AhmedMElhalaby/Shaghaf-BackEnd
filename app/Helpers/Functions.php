@@ -151,14 +151,17 @@ class Functions
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, TRUE);
         curl_setopt($ch, CURLOPT_POST, TRUE);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "{
-          \"userName\": \"Passion\",
-          \"numbers\": \"${to}\",
-          \"userSender\": \"Passion\",
-          \"apiKey\": \"3695f1bdf6f10a611ffc8a8badc854e2\",
-          \"msg\": \"${msg}\",
-          \"msgEncoding\": \"UTF8\"
-        }");
+
+        $fields = <<<EOT
+        {
+          "userName": "Passion",
+          "numbers": "${to}",
+          "userSender": "Passion",
+          "apiKey": "3695f1bdf6f10a611ffc8a8badc854e2",
+          "msg": "${msg}"
+        }
+        EOT;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             "Content-Type: application/json"
         ));
