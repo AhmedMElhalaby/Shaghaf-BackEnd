@@ -147,15 +147,30 @@ class Functions
     }
     public static function SendSms($msg,$to){
         $ch = curl_init();
-        $user = 'FHOTAIBI';
-        $password = 'FHotaibi@5588';
-        $sender = 'Passion';
-        $text = urlencode($msg);
-        $encoding = 'UTF8';
-        // auth call
-        $url = "https://apps.gateway.sa/vendorsms/pushsms.aspx?user=${user}&password=${password}&msisdn=${to}&sid=${sender}&msg=${text}&fl=0&dc=8";
-        $ret  = json_decode(file_get_contents($url), true);
+
+        curl_setopt($ch, CURLOPT_URL, "https://www.msegat.com/gw/sendsms.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, TRUE);
+
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+
+        $fields = <<<EOT
+            {
+              "userName": "Passion",
+              "numbers": "".$to,
+              "userSender": "Passion",
+              "apiKey": "3695f1bdf6f10a611ffc8a8badc854e2",
+              "msg": "".$msg,
+              "msgEncoding":"UTF8"
+            }
+        EOT;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            "Content-Type: application/json"
+        ));
         $response = curl_exec($ch);
+        $info = curl_getinfo($ch);
         curl_close($ch);
     }
     public static function SendVerification($user,$type = null): JsonResponse
