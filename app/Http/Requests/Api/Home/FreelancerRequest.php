@@ -30,6 +30,7 @@ class FreelancerRequest extends ApiRequest
     public function run(): JsonResponse
     {
         $Objects = new User();
+        $Objects = $Objects->where('profile_completed',true);
         if ($this->filled('category_id')){
             $user_id = FreelancerCategory::where('category_id', $this->category_id)->pluck('user_id');
             $Objects = $Objects->whereIn('id', $user_id);
