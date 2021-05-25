@@ -248,6 +248,22 @@ class InstallSeeder extends Seeder
                 'key'=>'commission',
                 'type'=>Constant::SETTING_TYPE['Values'],
             ],
+            'app_store'=>[
+                'name'=>'App Store Link',
+                'name_ar'=>'رابط الآب ستور',
+                'value'=>'',
+                'value_ar'=>'',
+                'key'=>'app_store',
+                'type'=>Constant::SETTING_TYPE['Values'],
+            ],
+            'google_play'=>[
+                'name'=>'Google Play Link',
+                'name_ar'=>'رابط جوجل بلاي',
+                'value'=>'',
+                'value_ar'=>'',
+                'key'=>'google_play',
+                'type'=>Constant::SETTING_TYPE['Values'],
+            ],
         ];
         foreach ($Settings as $setting){
             $Setting = new Setting();

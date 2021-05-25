@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\VerifyAccounts;
 use Illuminate\Http\Request;
@@ -32,5 +33,11 @@ class HomeController extends Controller
         }else
             $message = 'Verification Token is required !';
         return view('verification',compact('message'));
+    }
+
+    public function app_links(){
+        $app_store = ((new Setting())->where('key','app_store')->first())->getValue();
+        $google_play = ((new Setting())->where('key','google_play')->first())->getValue();
+        return view('app_link',compact('app_store','google_play'));
     }
 }

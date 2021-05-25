@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 Route::get('/privacy', 'HomeController@privacy');
+Route::get('/app_links', 'HomeController@app_links');
 Route::get('user/verify', 'HomeController@verify');
 
