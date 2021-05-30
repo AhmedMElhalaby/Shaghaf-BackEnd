@@ -313,7 +313,7 @@ class Functions
     }
     public static function GenerateCheckout($value){
         $url = "https://oppwa.com/v1/checkouts";
-        $data = "entityId=8ac9a4cd7868c08d01788a558f537a27" .
+        $data = "entityId=8acda4c97646b6460176dc6cf5ce0a4f" .
             "&amount=".$value .
             "&currency=SAR" .
             "&paymentType=DB" .
@@ -347,7 +347,7 @@ class Functions
     }
     public static function CheckPayment($id){
         $url = "https://oppwa.com/v1/checkouts/{$id}/payment";
-        $url .= "?entityId=8ac9a4cd7868c08d01788a558f537a27";
+        $url .= "?entityId=8acda4c97646b6460176dc6cf5ce0a4f";
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
