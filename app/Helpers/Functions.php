@@ -30,59 +30,61 @@ class Functions
     public static function SendNotification($user,$title,$msg,$title_ar,$msg_ar,$ref_id = null,$type= 0,$store = true,$replace =[]): bool
     {
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
-        $registrationIds = $user->device_token;
+        if ($user->device_token){
+            $registrationIds = $user->device_token;
 
-        $message = array
-        (
-            'body'  => ($user->getAppLocale() == 'en')?$msg:$msg_ar,
-            'title' => ($user->getAppLocale() == 'en')?$title:$title_ar,
-            'sound' => true,
-            'badge' => Notification::where('user_id',$user->getId())->whereNull('read_at')->count(),
-        );
-        $extraNotificationData = ["ref_id" =>$ref_id,"type"=>$type];
-        $fields = array
-        (
-            'to'        => $registrationIds,
-            'notification'  => $message,
-            'data' => $extraNotificationData
-        );
-        $headers = array
-        (
-            'Authorization: key='.config('app.notification_key') ,
-            'Content-Type: application/json'
-        );
+            $message = array
+            (
+                'body'  => ($user->getAppLocale() == 'en')?$msg:$msg_ar,
+                'title' => ($user->getAppLocale() == 'en')?$title:$title_ar,
+                'sound' => true,
+                'badge' => Notification::where('user_id',$user->getId())->whereNull('read_at')->count(),
+            );
+            $extraNotificationData = ["ref_id" =>$ref_id,"type"=>$type];
+            $fields = array
+            (
+                'to'        => $registrationIds,
+                'notification'  => $message,
+                'data' => $extraNotificationData
+            );
+            $headers = array
+            (
+                'Authorization: key='.config('app.notification_key') ,
+                'Content-Type: application/json'
+            );
 
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$fcmUrl);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        $result = curl_exec($ch);
-        curl_close($ch);
-        if($store){
-            $notify = new Notification();
-            $notify->setType($type);
-            $notify->setUserId($user->id);
-            $notify->setTitle($title);
-            $notify->setMessage($msg);
-            $notify->setTitleAr($title_ar);
-            $notify->setMessageAr($msg_ar);
-            $notify->setRefId(@$ref_id);
-            $notify->save();
-            $notify->refresh();
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,$fcmUrl);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+            $result = curl_exec($ch);
+            curl_close($ch);
+            if($store){
+                $notify = new Notification();
+                $notify->setType($type);
+                $notify->setUserId($user->id);
+                $notify->setTitle($title);
+                $notify->setMessage($msg);
+                $notify->setTitleAr($title_ar);
+                $notify->setMessageAr($msg_ar);
+                $notify->setRefId(@$ref_id);
+                $notify->save();
+                $notify->refresh();
+            }
+            $pusher_data =array
+            (
+                'body'  => ($user->getAppLocale() == 'en')?$msg:$msg_ar,
+                'title' => ($user->getAppLocale() == 'en')?$title:$title_ar,
+                'badge' => Notification::where('user_id',$user->getId())->whereNull('read_at')->count(),
+                "ref_id" =>$ref_id,
+                "type" =>$type
+            );
+            SendNotificationEvent::dispatch($pusher_data,$user->id);
         }
-        $pusher_data =array
-        (
-            'body'  => ($user->getAppLocale() == 'en')?$msg:$msg_ar,
-            'title' => ($user->getAppLocale() == 'en')?$title:$title_ar,
-            'badge' => Notification::where('user_id',$user->getId())->whereNull('read_at')->count(),
-            "ref_id" =>$ref_id,
-            "type" =>$type
-        );
-        SendNotificationEvent::dispatch($pusher_data,$user->id);
         return true;
     }
     public static function SendNotifications($users,$title,$msg,$ref_id = null,$type= 0,$store = true,$replace =[]): bool
