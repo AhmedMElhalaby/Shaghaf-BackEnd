@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\Auth;
 
+use App\Helpers\Constant;
 use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\User\UserResource;
 use App\Models\User;
@@ -109,6 +110,20 @@ class UserRequest extends ApiRequest
             $logged->setDeviceType($this->device_type);
         }
         $logged->save();
+        $logged->refresh();
+        if ($logged->getType() == Constant::USER_TYPE['Freelancer']){
+            if ($logged->getProviderType() == Constant::PROVIDER_TYPE['Individual']){
+                if ($logged->identity_image != null && $logged->maroof_cert != null){
+                    $logged->setProfileCompleted(true);
+                    $logged->save();
+                }
+            }else{
+                if ($logged->identity_image != null && $logged->commercial_cert != null){
+                    $logged->setProfileCompleted(true);
+                    $logged->save();
+                }
+            }
+        }
         DB::table('oauth_access_tokens')->where('user_id', $logged->id)->delete();
         $tokenResult = $logged->createToken('Personal Access Token');
         $token = $tokenResult->token;
