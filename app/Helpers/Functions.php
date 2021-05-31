@@ -30,7 +30,7 @@ class Functions
     public static function SendNotification($user,$title,$msg,$title_ar,$msg_ar,$ref_id = null,$type= 0,$store = true,$replace =[]): bool
     {
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
-        if ($user->device_token){
+        if ($user && $user->device_token){
             $registrationIds = $user->device_token;
 
             $message = array
