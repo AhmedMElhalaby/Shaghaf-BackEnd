@@ -15,6 +15,7 @@ class ProductResource extends JsonResource
         $Objects['description'] = $this->getDescription();
         $Objects['category_id'] = $this->getCategoryId();
         $Objects['category_name'] = Category::where('id', $this->getCategoryId())->first()->name;
+        $Objects['home_service'] = Category::where('id', $this->getCategoryId())->first()->home_service;
         $Objects['sub_category_id'] = $this->getSubCategoryId();
         $Objects['price'] = $this->getPrice();
         $Objects['type'] = $this->getType();
