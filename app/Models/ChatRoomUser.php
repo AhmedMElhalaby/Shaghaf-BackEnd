@@ -29,7 +29,7 @@ class ChatRoomUser extends Model
     protected static function boot() {
         parent::boot();
         static::deleting(function($Object) {
-            $Object->chat_room->delete();
+            ChatRoom::where('id',$Object->chat_room_id)->delete();
         });
     }
 
