@@ -26,6 +26,13 @@ class ChatRoomUser extends Model
     {
         return $this->belongsTo(User::class);
     }
+    protected static function boot() {
+        parent::boot();
+        static::deleting(function($Object) {
+            $Object->chat_room->delete();
+        });
+    }
+
     /**
      * @return int
      */

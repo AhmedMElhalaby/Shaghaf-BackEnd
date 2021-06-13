@@ -51,15 +51,91 @@ class User extends Authenticatable
     protected $fillable = ['name','email','mobile','type','country_id','city_id','avatar','bio','gender','iban_number','identity_image','portfolio_id','device_token','device_type','rate','provider_type','company_name','maroof_cert','commercial_cert','profile_completed','lat','lng','email_verified_at','mobile_verified_at','app_locale','order_count','is_available','is_active',];
 
     protected $hidden = ['password'];
-
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
-
     public function portfolios(): hasMany
     {
         return $this->hasMany(Portfolio::class);
+    }
+    public function freelancer_categories(): hasMany
+    {
+        return $this->hasMany(FreelancerCategory::class);
+    }
+    public function chat_room_users(): hasMany
+    {
+        return $this->hasMany(ChatRoomUser::class);
+    }
+    public function discounts_history(): hasMany
+    {
+        return $this->hasMany(DiscountHistory::class);
+    }
+    public function notifications(): hasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+    public function orders(): hasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function password_resets(): hasMany
+    {
+        return $this->hasMany(PasswordReset::class);
+    }
+    public function products(): hasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+    public function requests_refunds(): hasMany
+    {
+        return $this->hasMany(RequestRefund::class);
+    }
+    public function tickets(): hasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    public function transactions(): hasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+    protected static function boot() {
+        parent::boot();
+        static::deleting(function($Object) {
+            foreach ($Object->portfolios as $portfolio) {
+                $portfolio->delete();
+            };
+            foreach ($Object->freelancer_categories as $freelancer_category) {
+                $freelancer_category->delete();
+            };
+            foreach ($Object->chat_room_users as $chat_room_user) {
+                $chat_room_user->delete();
+            };
+            foreach ($Object->discounts_history as $discounts_history) {
+                $discounts_history->delete();
+            };
+            foreach ($Object->notifications as $notification) {
+                $notification->delete();
+            };
+            foreach ($Object->orders as $order) {
+                $order->delete();
+            };
+            foreach ($Object->password_resets as $password_reset) {
+                $password_reset->delete();
+            };
+            foreach ($Object->products as $product) {
+                $product->delete();
+            };
+            foreach ($Object->requests_refunds as $requests_refund) {
+                $requests_refund->delete();
+            };
+            foreach ($Object->tickets as $ticket) {
+                $ticket->delete();
+            };
+            foreach ($Object->transactions as $transaction) {
+                $transaction->delete();
+            };
+        });
     }
 
     /**

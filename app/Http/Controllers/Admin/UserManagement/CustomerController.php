@@ -72,6 +72,7 @@ class CustomerController extends Controller
             'active',
             'show',
             'change_password',
+            'delete',
         ]);
     }
     public function active_mobile_email($id,ActiveEmailMobileRequest $request){
