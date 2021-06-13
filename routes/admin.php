@@ -259,6 +259,7 @@ Route::group([
             Route::get('/option/export','CustomerController@export');
             Route::get('/{id}/activation','CustomerController@activation');
             Route::get('/{customer}/active_mobile_email','CustomerController@active_mobile_email');
+            Route::delete('/{customer}','CustomerController@destroy');
         });
         Route::group([
             'prefix'=>'providers'
@@ -269,6 +270,7 @@ Route::group([
             Route::get('/option/export','ProviderController@export');
             Route::get('/{id}/activation','ProviderController@activation');
             Route::get('/{provider}/active_mobile_email','ProviderController@active_mobile_email');
+            Route::delete('/{provider}','ProviderController@destroy');
         });
         Route::group([
             'prefix'=>'tickets'
