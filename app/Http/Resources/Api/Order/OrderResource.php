@@ -17,7 +17,7 @@ class OrderResource extends JsonResource
         $Objects['user_id'] = $this->getUserId();
         $Objects['User'] = new FreelancerResource($this->user);
         $Objects['product_id'] = $this->getProductId();
-        $Objects['Product'] = new ProductResource($this->product);
+        $Objects['Product'] = $this->product? new ProductResource($this->product):null;
         $Objects['freelancer_id'] = $this->getFreelancerId();
         $Objects['Freelancer'] = new FreelancerResource($this->freelancer);
         $Objects['quantity'] = $this->getQuantity();
