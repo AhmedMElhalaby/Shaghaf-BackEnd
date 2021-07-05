@@ -37,6 +37,7 @@ class InstallRequest extends ApiRequest
             'ChatMessageType'=>Constant::CHAT_MESSAGE_TYPE,
             'ProviderType'=>Constant::PROVIDER_TYPE,
             'CategoryUserType'=>Constant::CATEGORY_USER_TYPE,
+            'PaymentType'=>Constant::PAYMENT_TYPES,
         ];
         return $this->successJsonResponse([],$data);
     }
