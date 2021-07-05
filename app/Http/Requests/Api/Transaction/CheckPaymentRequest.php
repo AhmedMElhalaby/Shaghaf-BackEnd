@@ -24,7 +24,7 @@ class CheckPaymentRequest extends ApiRequest
     public function run(): JsonResponse
     {
         $Object = (new Transaction)->find($this->transaction_id);
-        $Response = Functions::CheckPayment($Object->getPaymentToken());
+        $Response = Functions::CheckPayment($Object->getPaymentToken(),$Object->getPaymentType());
         if(!$Response['status']){
             return $this->failJsonResponse([__('messages.not_paid_yet')],500,$Response['response']);
         }

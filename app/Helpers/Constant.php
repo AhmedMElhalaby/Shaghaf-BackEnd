@@ -29,6 +29,12 @@ class Constant
         'BankTransfer'=>1,
         'Cash'=>2,
     ];
+    const PAYMENT_TYPES = [
+        'Credit Card'=>1,
+        'Mada'=>2,
+        'Apple Pay'=>3,
+    ];
+    const PAYMENT_TYPES_RULES = '1,2,3';
     const PAYMENT_METHOD_RULES = '1,2';
     const TRANSACTION_STATUS = [
         'Pending'=>1,

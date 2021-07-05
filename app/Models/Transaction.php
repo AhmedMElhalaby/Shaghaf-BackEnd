@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property integer user_id
  * @property integer|null ref_id
  * @property integer type
+ * @property mixed payment_type
  * @property float value
  * @property string|null payment_token
  * @property integer status
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Transaction extends Model
 {
     protected $table = 'transactions';
-    protected $fillable = ['user_id','ref_id','type','value','payment_token','status'];
+    protected $fillable = ['user_id','ref_id','type','value','payment_token','payment_type','status'];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -135,6 +136,22 @@ class Transaction extends Model
     public function setStatus(int $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentType()
+    {
+        return $this->payment_type;
+    }
+
+    /**
+     * @param mixed $payment_type
+     */
+    public function setPaymentType($payment_type): void
+    {
+        $this->payment_type = $payment_type;
     }
 
 }

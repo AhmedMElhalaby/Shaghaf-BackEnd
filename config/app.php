@@ -125,6 +125,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | HYPER PAY
+    |--------------------------------------------------------------------------
+    */
+
+    'HYPERPAY_AUTH_TOKEN' => env('HYPERPAY_AUTH_TOKEN', ''),
+    'HYPERPAY_ENTITY_CARD' => env('HYPERPAY_ENTITY_CARD', ''),
+    'HYPERPAY_ENTITY_MADA' => env('HYPERPAY_ENTITY_MADA', ''),
+    'HYPERPAY_ENTITY_APPLEPAY' => env('HYPERPAY_ENTITY_APPLEPAY', ''),
+    /*
+    |--------------------------------------------------------------------------
     | App Variable
     |--------------------------------------------------------------------------
     */

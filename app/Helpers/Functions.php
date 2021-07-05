@@ -313,9 +313,19 @@ class Functions
             }
         }
     }
-    public static function GenerateCheckout($value){
+    public static function GenerateCheckout($value,$payment_type){
         $url = "https://oppwa.com/v1/checkouts";
-        $data = "entityId=8acda4c97646b6460176dc6cf5ce0a4f" .
+        $entityId= '';
+        if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
+            $entityId = config('app.HYPERPAY_ENTITY_CARD');
+        }
+        if ($payment_type == Constant::PAYMENT_TYPES['Mada']){
+            $entityId = config('app.HYPERPAY_ENTITY_MADA');
+        }
+        if ($payment_type == Constant::PAYMENT_TYPES['Apple Pay']){
+            $entityId = config('app.HYPERPAY_ENTITY_APPLEPAY');
+        }
+        $data = "entityId=".$entityId.
             "&amount=".$value .
             "&currency=SAR" .
             "&paymentType=DB" .
@@ -324,7 +334,7 @@ class Functions
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:Bearer OGFjZGE0Y2M3NjQ2YmFmOTAxNzZkN2Y1N2MzZDVkODB8bnJEOUJ6OTdDMg=='));
+            'Authorization:Bearer '. config('app.HYPERPAY_AUTH_TOKEN')));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
@@ -347,14 +357,24 @@ class Functions
             ];
         }
     }
-    public static function CheckPayment($id){
+    public static function CheckPayment($id,$payment_type){
         $url = "https://oppwa.com/v1/checkouts/{$id}/payment";
-        $url .= "?entityId=8acda4c97646b6460176dc6cf5ce0a4f";
+        $entityId= '';
+        if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
+            $entityId = config('app.HYPERPAY_ENTITY_CARD');
+        }
+        if ($payment_type == Constant::PAYMENT_TYPES['Mada']){
+            $entityId = config('app.HYPERPAY_ENTITY_MADA');
+        }
+        if ($payment_type == Constant::PAYMENT_TYPES['Apple Pay']){
+            $entityId = config('app.HYPERPAY_ENTITY_APPLEPAY');
+        }
+        $url .= "?entityId=".$entityId;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Authorization:Bearer OGFjZGE0Y2M3NjQ2YmFmOTAxNzZkN2Y1N2MzZDVkODB8bnJEOUJ6OTdDMg=='));
+            'Authorization:Bearer '.config('app.HYPERPAY_AUTH_TOKEN')));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);// this should be set to true in production
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
