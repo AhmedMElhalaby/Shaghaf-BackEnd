@@ -314,7 +314,7 @@ class Functions
         }
     }
     public static function GenerateCheckout($value,$payment_type){
-        $url = "https://oppwa.com/v1/checkouts";
+        $url = "https://test.oppwa.com/v1/checkouts";
         $entityId= '';
         if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
             $entityId = config('app.HYPERPAY_ENTITY_CARD');
@@ -358,7 +358,7 @@ class Functions
         }
     }
     public static function CheckPayment($id,$payment_type){
-        $url = "https://oppwa.com/v1/checkouts/{$id}/payment";
+        $url = "https://test.oppwa.com/v1/checkouts/{$id}/payment";
         $entityId= '';
         if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
             $entityId = config('app.HYPERPAY_ENTITY_CARD');
