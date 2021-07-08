@@ -27,19 +27,22 @@ class GenerateCheckoutRequest extends ApiRequest
     }
     public function run(): JsonResponse
     {
-        $last_transaction = Transaction::orderBy('created_at', 'desc')->first();
-        $id = Functions::GenerateCheckout($this->value,$this->payment_type,($last_transaction->id +1));
+        $Object = new Transaction();
+        $Object->setType(Constant::TRANSACTION_TYPES['Deposit']);
+        $Object->setValue($this->value);
+        $Object->setStatus(Constant::TRANSACTION_STATUS['Pending']);
+        $Object->setPaymentToken('');
+        $Object->setPaymentType($this->payment_type);
+        $Object->setUserId(auth()->user()->getId());
+        $Object->save();
+        $Object->refresh();
+        $id = Functions::GenerateCheckout($this->value,$this->payment_type,$Object->getId());
         if($id['status']){
-            $Object = new Transaction();
-            $Object->setType(Constant::TRANSACTION_TYPES['Deposit']);
-            $Object->setValue($this->value);
-            $Object->setStatus(Constant::TRANSACTION_STATUS['Pending']);
             $Object->setPaymentToken($id['id']);
-            $Object->setPaymentType($this->payment_type);
-            $Object->setUserId(auth()->user()->getId());
             $Object->save();
             return $this->successJsonResponse([],new TransactionResource($Object),'Transaction');
         }else{
+            $Object->delete();
             return $this->failJsonResponse([$id['message']]);
         }
     }
