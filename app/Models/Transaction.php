@@ -29,7 +29,7 @@ class Transaction extends Model
     }
     public function getNextId()
     {
-        $statement = DB::select("show table status like 'posts'");
+        $statement = DB::select("show table status like 'transactions'");
         return $statement[0]->Auto_increment;
     }
     /**
