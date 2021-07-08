@@ -8,6 +8,7 @@ use App\Http\Requests\Api\ApiRequest;
 use App\Http\Resources\Api\Transaction\TransactionResource;
 use App\Models\Transaction;
 use App\Traits\ResponseTrait;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 
@@ -26,9 +27,10 @@ class GenerateCheckoutRequest extends ApiRequest
     }
     public function run(): JsonResponse
     {
-        $Object = new Transaction();
-        $id = Functions::GenerateCheckout($this->value,$this->payment_type,$Object->getNextId());
+        $statement = DB::select("show table status like 'transactions'");
+        $id = Functions::GenerateCheckout($this->value,$this->payment_type,$statement[0]->Auto_increment);
         if($id['status']){
+            $Object = new Transaction();
             $Object->setType(Constant::TRANSACTION_TYPES['Deposit']);
             $Object->setValue($this->value);
             $Object->setStatus(Constant::TRANSACTION_STATUS['Pending']);
