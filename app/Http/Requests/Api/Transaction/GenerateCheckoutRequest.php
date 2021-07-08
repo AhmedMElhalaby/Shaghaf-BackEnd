@@ -27,8 +27,7 @@ class GenerateCheckoutRequest extends ApiRequest
     }
     public function run(): JsonResponse
     {
-        $last_transaction = DB::table('transactions')->orderBy('created_at', 'desc')->first();
-
+        $last_transaction = Transaction::orderBy('created_at', 'desc')->first();
         $id = Functions::GenerateCheckout($this->value,$this->payment_type,($last_transaction->id +1));
         if($id['status']){
             $Object = new Transaction();
