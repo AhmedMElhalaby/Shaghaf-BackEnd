@@ -335,7 +335,7 @@ class Functions
             "&customer.surname=".auth('api')->user()->getName() .
             "&billing.city=".(auth('api')->user()->city)?auth('api')->user()->city->getName():'Jaddah' .
             "&billing.state=".(auth('api')->user()->city)?auth('api')->user()->city->getName():'Jaddah' .
-            "&billing.country=".(auth('api')->user()->country)?auth('api')->user()->country->getName():'SA' .
+            "&billing.country=".'SA' .
             "&billing.postcode=".'34424' .
             "&customer.surname=".auth('api')->user()->getName() .
             "&notificationUrl=http://www.example.com/notify";
