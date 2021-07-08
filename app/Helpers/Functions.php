@@ -313,7 +313,7 @@ class Functions
             }
         }
     }
-    public static function GenerateCheckout($value,$payment_type){
+    public static function GenerateCheckout($value,$payment_type,$object_id){
         $url = "https://test.oppwa.com/v1/checkouts";
         $entityId= '';
         if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
@@ -329,6 +329,15 @@ class Functions
             "&amount=".$value .
             "&currency=SAR" .
             "&paymentType=DB" .
+            "&merchantTransactionId=".$object_id .
+            "&customer.email=".auth('api')->user()->getEmail() .
+            "&customer.givenName=".auth('api')->user()->getName() .
+            "&customer.surname=".auth('api')->user()->getName() .
+            "&billing.city=".(auth('api')->user()->city)?auth('api')->user()->city->getName():'Jaddah' .
+            "&billing.state=".(auth('api')->user()->city)?auth('api')->user()->city->getName():'Jaddah' .
+            "&billing.country=".(auth('api')->user()->country)?auth('api')->user()->country->getName():'SA' .
+            "&billing.postcode=".'34424' .
+            "&customer.surname=".auth('api')->user()->getName() .
             "&notificationUrl=http://www.example.com/notify";
 
         $ch = curl_init();
