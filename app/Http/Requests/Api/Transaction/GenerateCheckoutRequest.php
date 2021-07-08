@@ -27,8 +27,9 @@ class GenerateCheckoutRequest extends ApiRequest
     }
     public function run(): JsonResponse
     {
-        $statement = DB::select("show table status like 'transactions'");
-        $id = Functions::GenerateCheckout($this->value,$this->payment_type,$statement[0]->Auto_increment);
+        $last_transaction = DB::table('transactions')->orderBy('created_at', 'desc')->first();
+
+        $id = Functions::GenerateCheckout($this->value,$this->payment_type,($last_transaction->id +1));
         if($id['status']){
             $Object = new Transaction();
             $Object->setType(Constant::TRANSACTION_TYPES['Deposit']);
