@@ -314,7 +314,7 @@ class Functions
         }
     }
     public static function GenerateCheckout($value,$payment_type,$object_id){
-        $url = "https://test.oppwa.com/v1/checkouts";
+        $url = "https://oppwa.com/v1/checkouts";
         $entityId= '';
         if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
             $entityId = config('app.HYPERPAY_ENTITY_CARD');
@@ -333,8 +333,8 @@ class Functions
             "&customer.email=".auth('api')->user()->getEmail() .
             "&customer.givenName=".auth('api')->user()->getName() .
             "&customer.surname=".auth('api')->user()->getName() .
-            "&billing.city=".(auth('api')->user()->city)?auth('api')->user()->city->getName():'Jaddah' .
-            "&billing.state=".(auth('api')->user()->city)?auth('api')->user()->city->getName():'Jaddah' .
+            "&billing.city=".'Jaddah' .
+            "&billing.state=".'Jaddah' .
             "&billing.country=".'SA' .
             "&billing.postcode=".'34424' .
             "&customer.surname=".auth('api')->user()->getName() .
@@ -367,7 +367,7 @@ class Functions
         }
     }
     public static function CheckPayment($id,$payment_type){
-        $url = "https://test.oppwa.com/v1/checkouts/{$id}/payment";
+        $url = "https://oppwa.com/v1/checkouts/{$id}/payment";
         $entityId= '';
         if ($payment_type == Constant::PAYMENT_TYPES['Credit Card']){
             $entityId = config('app.HYPERPAY_ENTITY_CARD');
