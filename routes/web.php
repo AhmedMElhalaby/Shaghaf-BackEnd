@@ -16,4 +16,5 @@ Route::get('/', 'HomeController@index');
 Route::get('/privacy', 'HomeController@privacy');
 Route::get('/app_links', 'HomeController@app_links');
 Route::get('user/verify', 'HomeController@verify');
+Route::get('payment/verify', 'HomeController@payment_verify');
 

@@ -338,7 +338,7 @@ class Functions
             "&billing.country=".'SA' .
             "&billing.postcode=".'34424' .
             "&customer.surname=".auth('api')->user()->getName() .
-            "&notificationUrl=http://www.example.com/notify";
+            "&notificationUrl=".url('payment/verify');
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -393,7 +393,13 @@ class Functions
         }
         curl_close($ch);
         $responseData = json_decode($responseData);
-        if ($responseData->result->code == "000.100.110"){
+        if (
+            $responseData->result->code == "000.100.110" ||
+            $responseData->result->code == "000.400.000" ||
+            $responseData->result->code == "000.400.110" ||
+            $responseData->result->code == "000.400.1" ||
+            $responseData->result->code == "000.100.1"
+        ){
             return  [
                 'status'=>true,
                 'response'=>$responseData

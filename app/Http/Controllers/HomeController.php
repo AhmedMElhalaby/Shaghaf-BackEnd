@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Constant;
+use App\Helpers\Functions;
 use App\Models\Setting;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Models\VerifyAccounts;
 use Illuminate\Http\Request;
@@ -39,5 +42,17 @@ class HomeController extends Controller
         $app_store = ((new Setting())->where('key','app_store')->first())->getValue();
         $google_play = ((new Setting())->where('key','google_play')->first())->getValue();
         return view('app_link',compact('app_store','google_play'));
+    }
+    public function payment_verify(Request $request){
+        $Transaction = (new Transaction())->where('payment_token',$request->id)->first();
+        if ($Transaction){
+            $Response = Functions::CheckPayment($Transaction->getPaymentToken(),$Transaction->getPaymentType());
+            if(!$Response['status']){
+                return $this->failJsonResponse([__('messages.not_paid_yet')],500,$Response['response']);
+            }
+            $Transaction->setStatus(Constant::TRANSACTION_STATUS['Paid']);
+            $Transaction->save();
+        }
+        return '';
     }
 }

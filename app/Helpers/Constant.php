@@ -110,6 +110,7 @@ class Constant
         'Audio' => 2,
         'Image' => 3,
         'File' => 4,
+        'Location' => 5,
     ];
     const CHAT_MESSAGE_TYPE_RULES = '1,2,3,4';
 }
