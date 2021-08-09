@@ -33,6 +33,9 @@ class CreateMessageRequest extends ApiRequest
         if ($this->type == Constant::CHAT_MESSAGE_TYPE['Text']) {
             $rules['message'] = 'required';
         }
+        if ($this->type == Constant::CHAT_MESSAGE_TYPE['Location']) {
+            $rules['message'] = 'required';
+        }
         if ($this->type == Constant::CHAT_MESSAGE_TYPE['Image']) {
             $rules['message'] = 'required|mimes:jpeg,jpg,png';
         }

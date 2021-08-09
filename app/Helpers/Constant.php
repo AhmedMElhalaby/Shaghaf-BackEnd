@@ -112,5 +112,5 @@ class Constant
         'File' => 4,
         'Location' => 5,
     ];
-    const CHAT_MESSAGE_TYPE_RULES = '1,2,3,4';
+    const CHAT_MESSAGE_TYPE_RULES = '1,2,3,4,5';
 }
