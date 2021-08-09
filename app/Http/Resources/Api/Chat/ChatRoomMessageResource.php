@@ -14,7 +14,7 @@ class ChatRoomMessageResource extends JsonResource
         $Objects['id'] = $this->getId();
         $Objects['chat_room_id'] = $this->getChatRoomId();
         $message = $this->getMessage();
-        if ($this->getType() != Constant::CHAT_MESSAGE_TYPE['Text']){
+        if ($this->getType() != Constant::CHAT_MESSAGE_TYPE['Text'] && $this->getType() != Constant::CHAT_MESSAGE_TYPE['Location'] ){
             $message = asset($this->getMessage());
         }
         $Objects['message'] = $message;
