@@ -15,6 +15,7 @@ class TransactionResource extends JsonResource
         $Objects['type_str'] = __('crud.Transaction.Types.'.$this->getType());
         $Objects['value'] = $this->getValue();
         $Objects['payment_token'] = $this->getPaymentToken();
+        $Objects['payment_type'] = $this->getPaymentType();
         $Objects['status'] = $this->getStatus();
         $Objects['status_str'] = __('crud.Transaction.Statuses.'.$this->getStatus());
         $Objects['created_at'] = ($this->created_at)?Carbon::parse($this->created_at)->format('Y-m-d h:i A'):null;
