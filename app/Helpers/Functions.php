@@ -394,6 +394,7 @@ class Functions
         curl_close($ch);
         $responseData = json_decode($responseData);
         if (
+            $responseData->result->code == "000.000.000" ||
             $responseData->result->code == "000.100.110" ||
             $responseData->result->code == "000.400.000" ||
             $responseData->result->code == "000.400.110" ||
